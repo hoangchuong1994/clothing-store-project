@@ -1,0 +1,14 @@
+{
+	"brand": "EcomSaaS",
+	"nav": {
+		"home": "Home",
+		"men": "Men",
+		"women": "Women",
+		"newArrivals": "New Arrivals",
+		"sale": "Sale"
+	},
+	"action": {
+		"search": "Search",
+		"dashboard": "Dashboard"
+	}
+}
