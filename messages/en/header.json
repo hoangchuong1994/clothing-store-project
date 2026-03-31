@@ -1,14 +1,30 @@
 {
-	"brand": "EcomSaaS",
-	"nav": {
-		"home": "Home",
-		"men": "Men",
-		"women": "Women",
-		"newArrivals": "New Arrivals",
-		"sale": "Sale"
-	},
-	"action": {
-		"search": "Search",
-		"dashboard": "Dashboard"
-	}
+  "brand": "STREET",
+  "nav": {
+    "men": "Men",
+    "women": "Women",
+    "new": "New",
+    "drops": "Drops",
+    "sale": "Sale"
+  },
+  "action": {
+    "search": "Search",
+    "close": "Close search"
+  },
+  "user": {
+    "login": "Login",
+    "profile": "Profile",
+    "orders": "Orders",
+    "logout": "Logout"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "current": "{theme} ({mode})",
+    "toggle": "Switch theme (current: {theme})"
+  },
+  "language": {
+    "toggle": "Change language"
+  }
 }

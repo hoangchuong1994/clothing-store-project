@@ -1,1 +1,30 @@
-{}
+{
+  "brand": "STREET",
+  "nav": {
+    "men": "Nam",
+    "women": "Nữ",
+    "new": "Mới",
+    "drops": "Drops",
+    "sale": "Giảm Giá"
+  },
+  "action": {
+    "search": "Tìm Kiếm",
+    "close": "Đóng tìm kiếm"
+  },
+  "user": {
+    "login": "Đăng Nhập",
+    "profile": "Hồ Sơ",
+    "orders": "Đơn Hàng",
+    "logout": "Đăng Xuất"
+  },
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống",
+    "current": "{theme} ({mode})",
+    "toggle": "Chuyển giao diện (hiện: {theme})"
+  },
+  "language": {
+    "toggle": "Chuyển ngôn ngữ"
+  }
+}
