@@ -32,7 +32,7 @@ export function FeaturedProductsSection() {
             className="flex-1"
           >
             <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-orange-400 bg-linear-to-r from-orange-500/20 to-red-500/20 px-3 py-1 text-xs font-bold text-orange-300 shadow-lg shadow-orange-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
-              <Flame size={14} className="sm:size-16" />
+              <Flame size={5} className="sm:size-5" />
               <span className="text-xs font-bold tracking-widest text-orange-300 uppercase sm:text-sm">
                 <span className="relative mr-1 inline-flex h-1.5 w-1.5 rounded-full bg-orange-400 align-middle sm:mr-2 sm:h-2 sm:w-2">
                   <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-orange-400 opacity-75"></span>

@@ -21,7 +21,7 @@ export function NewArrivalsSection() {
           className="mb-8 sm:mb-12 lg:mb-16"
         >
           <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-linear-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
-            <Zap size={14} className="text-cyan-300 sm:size-16" />
+            <Zap size={5} className="text-cyan-300 sm:size-5" />
             <span className="text-xs font-bold tracking-widest text-cyan-300 uppercase sm:text-sm">
               <span className="relative mr-1 inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400 align-middle sm:mr-2 sm:h-2 sm:w-2">
                 <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-cyan-400 opacity-75"></span>
