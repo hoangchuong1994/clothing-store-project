@@ -38,19 +38,16 @@ export function MobileMenu() {
 
   return (
     <>
-      <motion.button
-        whileHover={{ scale: 1.05, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center rounded-md p-2 transition-colors focus-visible:ring-2 focus-visible:outline-none md:hidden"
+        className="text-foreground focus-visible:ring-ring inline-flex items-center justify-center rounded-md p-2 focus-visible:ring-2 focus-visible:outline-none md:hidden"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
       >
         <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </motion.div>
-      </motion.button>
+      </button>
 
       <AnimatePresence>
         {isOpen && (
@@ -86,10 +83,8 @@ export function MobileMenu() {
                 <Link
                   href={href}
                   onClick={() => setIsOpen(false)}
-                  className={`block rounded-lg px-4 py-3 text-base font-bold tracking-widest uppercase transition-colors sm:px-3 sm:py-2 sm:text-sm ${
-                    isActive
-                      ? 'bg-accent text-accent-foreground'
-                      : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                  className={`block rounded-lg px-4 py-3 text-base font-bold tracking-widest uppercase sm:px-3 sm:py-2 sm:text-sm ${
+                    isActive ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'
                   }`}
                 >
                   {t(item.labelKey)}

@@ -75,7 +75,7 @@ export function Footer() {
           {/* Brand Section */}
           <motion.div variants={itemVariants} className="col-span-2 sm:col-span-1">
             <h3 className="text-2xl font-black text-white">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 CYBER
               </span>
             </h3>
@@ -195,7 +195,7 @@ export function Footer() {
         </motion.div>
 
         {/* Divider */}
-        <div className="my-8 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent sm:my-12" />
+        <div className="my-8 h-px bg-linear-to-r from-transparent via-slate-700 to-transparent sm:my-12" />
 
         {/* Bottom Section */}
         <motion.div
@@ -247,7 +247,7 @@ export function Footer() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg transition-all hover:shadow-2xl"
+        className="fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-lg transition-all hover:shadow-2xl"
       >
         <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

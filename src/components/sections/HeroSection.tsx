@@ -30,7 +30,7 @@ export function HeroSection() {
     <section className="relative min-h-screen overflow-hidden pt-16 sm:pt-20 lg:pt-32">
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 dark:from-slate-950 dark:via-purple-950 dark:to-slate-950" />
+        <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-purple-900 to-slate-900 dark:from-slate-950 dark:via-purple-950 dark:to-slate-950" />
 
         {/* Animated Gradient Orbs */}
         <motion.div
@@ -39,7 +39,7 @@ export function HeroSection() {
             y: [0, 50, 0],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-1/3 -right-1/3 h-64 w-64 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 opacity-20 blur-3xl sm:h-96 sm:w-96"
+          className="absolute -top-1/3 -right-1/3 h-64 w-64 rounded-full bg-linear-to-r from-cyan-500 to-blue-500 opacity-20 blur-3xl sm:h-96 sm:w-96"
         />
         <motion.div
           animate={{
@@ -47,7 +47,7 @@ export function HeroSection() {
             y: [0, -50, 0],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          className="absolute bottom-0 -left-1/4 h-64 w-64 rounded-full bg-gradient-to-tr from-pink-500 to-purple-500 opacity-20 blur-3xl sm:h-96 sm:w-96"
+          className="absolute bottom-0 -left-1/4 h-64 w-64 rounded-full bg-linear-to-tr from-pink-500 to-purple-500 opacity-20 blur-3xl sm:h-96 sm:w-96"
         />
       </div>
 
@@ -87,11 +87,11 @@ export function HeroSection() {
             variants={itemVariants}
             className="mt-6 text-4xl font-black tracking-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
           >
-            <span className="bg-gradient-to-r from-white via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white via-cyan-300 to-blue-500 bg-clip-text text-transparent">
               {t('headline1')}
             </span>
             <br />
-            <span className="mt-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="mt-2 bg-linear-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               {t('headline2')}
             </span>
           </motion.h1>
@@ -112,7 +112,7 @@ export function HeroSection() {
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgb(34, 211, 238)' }}
               whileTap={{ scale: 0.95 }}
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-4 font-bold text-white transition-all duration-300 hover:shadow-2xl sm:w-auto sm:px-8"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 px-6 py-4 font-bold text-white transition-all duration-300 hover:shadow-2xl sm:w-auto sm:px-8"
             >
               {t('primaryCta')}
               <ChevronRight size={20} className="transition-transform group-hover:translate-x-1" />

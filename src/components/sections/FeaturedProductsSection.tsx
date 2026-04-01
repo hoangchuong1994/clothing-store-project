@@ -31,7 +31,7 @@ export function FeaturedProductsSection() {
             transition={{ duration: 0.6 }}
             className="flex-1"
           >
-            <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-orange-400 bg-gradient-to-r from-orange-500/20 to-red-500/20 px-3 py-1 text-xs font-bold text-orange-300 shadow-lg shadow-orange-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-orange-400 bg-linear-to-r from-orange-500/20 to-red-500/20 px-3 py-1 text-xs font-bold text-orange-300 shadow-lg shadow-orange-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
               <Flame size={14} className="sm:size-16" />
               <span className="text-xs font-bold tracking-widest text-orange-300 uppercase sm:text-sm">
                 <span className="relative mr-1 inline-flex h-1.5 w-1.5 rounded-full bg-orange-400 align-middle sm:mr-2 sm:h-2 sm:w-2">
@@ -41,7 +41,7 @@ export function FeaturedProductsSection() {
               </span>
             </div>
             <h2 className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl">
-              <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
                 {t('title')}
               </span>
             </h2>

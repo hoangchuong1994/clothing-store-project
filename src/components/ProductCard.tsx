@@ -31,7 +31,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   return (
     <motion.div variants={containerVariants} className="group relative">
-      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="relative overflow-hidden rounded-lg bg-linear-to-r from-slate-900 to-slate-800">
         {/* Product Image */}
         <div className="relative h-56 w-full overflow-hidden bg-slate-100 sm:h-64 md:h-72 lg:h-80 dark:bg-slate-800">
           <Image
@@ -45,7 +45,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Badge */}
           {product.badge && (
-            <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-cyan-500 to-blue-500 px-2 py-1 text-xs font-bold text-white sm:top-3 sm:left-3 sm:px-3">
+            <div className="absolute top-2 left-2 z-10 bg-linear-to-r from-cyan-500 to-blue-500 px-2 py-1 text-xs font-bold text-white sm:top-3 sm:left-3 sm:px-3">
               {product.badge}
             </div>
           )}

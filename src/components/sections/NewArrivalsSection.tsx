@@ -20,7 +20,7 @@ export function NewArrivalsSection() {
           transition={{ duration: 0.6 }}
           className="mb-8 sm:mb-12 lg:mb-16"
         >
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-linear-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
             <Zap size={14} className="text-cyan-300 sm:size-16" />
             <span className="text-xs font-bold tracking-widest text-cyan-300 uppercase sm:text-sm">
               <span className="relative mr-1 inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400 align-middle sm:mr-2 sm:h-2 sm:w-2">
@@ -30,7 +30,7 @@ export function NewArrivalsSection() {
             </span>
           </div>
           <h2 className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl">
-            <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
               {t('title')}
             </span>
           </h2>
@@ -38,7 +38,7 @@ export function NewArrivalsSection() {
         </motion.div>
 
         {/* Gradient Divider */}
-        <div className="mb-8 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+        <div className="mb-8 h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent" />
 
         {/* Grid Layout - Mobile Scrolls Horizontally, Desktop is Grid */}
         <motion.div

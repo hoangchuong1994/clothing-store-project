@@ -29,7 +29,7 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md p-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          className="text-foreground focus-visible:ring-ring inline-flex items-center justify-center gap-2 rounded-md p-2 focus-visible:ring-2 focus-visible:outline-none"
           aria-label={t('language.toggle') || 'Change language'}
           title={getLanguageName(currentLocale)}
         >

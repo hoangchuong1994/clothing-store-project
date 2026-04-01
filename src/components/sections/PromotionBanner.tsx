@@ -39,13 +39,13 @@ export function PromotionBanner() {
         >
           {/* Background */}
           <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-purple-600 to-pink-600 opacity-80" />
+            <div className="absolute inset-0 bg-linear-to-r from-cyan-600 via-purple-600 to-pink-600 opacity-80" />
             <motion.div
               animate={{
                 backgroundPosition: ['0% 0%', '100% 100%'],
               }}
               transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse' }}
-              className="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,_rgba(34,211,238,0.3)_0%,_transparent_50%)]"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_40%_60%,rgba(34,211,238,0.3)_0%,transparent_50%)]"
             />
           </div>
 
@@ -81,7 +81,7 @@ export function PromotionBanner() {
             >
               <span className="text-white">{t('headline1')}</span>
               <br />
-              <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent">
                 {t('headline2')}
               </span>
             </motion.h3>

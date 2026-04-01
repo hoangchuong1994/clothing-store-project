@@ -39,7 +39,7 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center sm:mb-16"
         >
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border-2 border-pink-400 bg-gradient-to-r from-pink-500/20 to-purple-500/20 px-4 py-2 shadow-lg shadow-pink-500/20 backdrop-blur-md">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border-2 border-pink-400 bg-linear-to-r from-pink-500/20 to-purple-500/20 px-4 py-2 shadow-lg shadow-pink-500/20 backdrop-blur-md">
             <span className="relative flex h-2 w-2 rounded-full bg-pink-400">
               <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-pink-400 opacity-75"></span>
             </span>
@@ -48,7 +48,7 @@ export function TestimonialsSection() {
             </span>
           </div>
           <h2 className="text-4xl font-black sm:text-5xl md:text-6xl">
-            <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
               {t('title')}
             </span>
           </h2>
@@ -68,10 +68,10 @@ export function TestimonialsSection() {
               key={testimonial.id}
               variants={itemVariants}
               whileHover={{ y: -5, boxShadow: '0 20px 40px rgba(34, 211, 238, 0.15)' }}
-              className="group relative overflow-hidden rounded-xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 p-6 transition-all duration-300 sm:p-8"
+              className="group relative overflow-hidden rounded-xl border border-slate-700 bg-linear-to-r from-slate-800 to-slate-900 p-6 transition-all duration-300 sm:p-8"
             >
               {/* Background Gradient */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="absolute inset-0 -z-10 bg-linear-to-r from-cyan-500/5 to-purple-500/5 opacity-0 transition-opacity group-hover:opacity-100" />
 
               {/* Quote Icon */}
               <motion.div

@@ -40,13 +40,13 @@ export function NewsletterSection() {
         >
           {/* Background */}
           <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-slate-900 to-cyan-900" />
+            <div className="absolute inset-0 bg-linear-to-r from-purple-900 via-slate-900 to-cyan-900" />
             <motion.div
               animate={{
                 backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
               }}
               transition={{ duration: 15, repeat: Infinity }}
-              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(34,211,238,0.2)_0%,_transparent_50%)]"
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,0.2)_0%,transparent_50%)]"
             />
           </div>
 
@@ -81,7 +81,7 @@ export function NewsletterSection() {
 
             {/* Headline */}
             <h2 className="mt-6 text-center text-3xl font-black sm:text-4xl md:text-5xl">
-              <span className="bg-gradient-to-r from-white via-cyan-300 to-blue-300 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-white via-cyan-300 to-blue-300 bg-clip-text text-transparent">
                 {t('title')}
               </span>
             </h2>
@@ -113,7 +113,7 @@ export function NewsletterSection() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg rounded-l-none bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 font-bold text-white transition-all duration-300 hover:shadow-lg disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg rounded-l-none bg-linear-to-r from-cyan-500 to-blue-500 px-6 py-3 font-bold text-white transition-all duration-300 hover:shadow-lg disabled:opacity-50"
                   disabled={isSubmitted}
                 >
                   {isSubmitted ? (

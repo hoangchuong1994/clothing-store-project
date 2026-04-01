@@ -36,15 +36,13 @@ export function SearchBar() {
 
   return (
     <>
-      <motion.button
-        whileHover={{ scale: 1.05, y: -2 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      <button
         onClick={() => setIsOpen(true)}
-        className="text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex items-center justify-center rounded-md p-2 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+        className="text-foreground focus-visible:ring-ring inline-flex items-center justify-center rounded-md p-2 focus-visible:ring-2 focus-visible:outline-none"
         aria-label={t('action.search')}
       >
         <Search className="h-5 w-5" />
-      </motion.button>
+      </button>
 
       {isOpen &&
         createPortal(
@@ -92,16 +90,13 @@ export function SearchBar() {
                         }
                       }}
                     />
-                    <motion.button
-                      whileHover={{ scale: 1.1, rotate: 90 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    <button
                       onClick={() => setIsOpen(false)}
-                      className="text-muted-foreground hover:bg-accent hover:text-foreground shrink-0 rounded-full p-2 transition-colors"
+                      className="text-muted-foreground shrink-0 rounded-full p-2"
                       aria-label={t('action.close')}
                     >
                       <X className="h-5 w-5" />
-                    </motion.button>
+                    </button>
                   </div>
 
                   {/* Suggested Searches */}
@@ -119,22 +114,17 @@ export function SearchBar() {
                     </div>
                     <div className="flex flex-wrap gap-3">
                       {['Dresses', 'Shirts', 'Shoes', 'Jackets', 'Accessories', 'Sale'].map(
-                        (item, index) => (
-                          <motion.button
+                        (item) => (
+                          <button
                             key={item}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.2, delay: 0.25 + index * 0.05 }}
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
                             onClick={() => {
                               inputRef.current!.value = item;
                               inputRef.current?.focus();
                             }}
-                            className="border-border/50 bg-background/50 text-foreground rounded-xl border px-4 py-2.5 text-sm font-medium shadow-sm transition-all hover:border-cyan-500/50 hover:bg-cyan-500/5 hover:shadow-md"
+                            className="border-border/50 bg-background/50 text-foreground rounded-xl border px-4 py-2.5 text-sm font-medium shadow-sm"
                           >
                             {item}
-                          </motion.button>
+                          </button>
                         ),
                       )}
                     </div>

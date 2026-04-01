@@ -39,14 +39,14 @@ export function CategoriesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
+            <p className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-linear-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
               <span className="relative flex h-1.5 w-1.5 rounded-full bg-cyan-400 sm:h-2 sm:w-2">
                 <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-cyan-400 opacity-75"></span>
               </span>
               {t('badge')}
             </p>
             <h2 className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl">
-              <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
                 {t('title')}
               </span>
             </h2>
@@ -78,7 +78,7 @@ export function CategoriesSection() {
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-linear-to-r from-slate-950 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center">
