@@ -17,8 +17,8 @@ export function NavMenu() {
         return (
           <Link key={item.id} href={href} className="group relative">
             <div
-              className={`relative px-4 py-2.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
-                isActive ? 'text-foreground' : 'text-muted-foreground'
+              className={`font-heading relative px-4 py-2.5 text-xs tracking-widest uppercase transition-all duration-300 ${
+                isActive ? 'text-foreground' : ''
               }`}
             >
               {t(item.labelKey)}

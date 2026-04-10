@@ -12,10 +12,8 @@ function HeaderWithState() {
 export function ClientLocaleLayout({ children }: { children: React.ReactNode }) {
   return (
     <HeaderProvider>
-      <div className="bg-background min-h-screen">
-        <HeaderWithState />
-        {children}
-      </div>
+      <HeaderWithState />
+      {children}
     </HeaderProvider>
   );
 }
