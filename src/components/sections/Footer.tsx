@@ -46,9 +46,7 @@ export function Footer() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
@@ -62,7 +60,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-slate-800 bg-slate-950">
+    <footer className="border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         {/* Main Footer Content */}
         <motion.div
@@ -74,8 +72,8 @@ export function Footer() {
         >
           {/* Brand Section */}
           <motion.div variants={itemVariants} className="col-span-2 sm:col-span-1">
-            <h3 className="text-2xl font-black text-white">
-              <span className="bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <h3 className="text-2xl font-black">
+              <span className="bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-400">
                 CYBER
               </span>
             </h3>
@@ -84,118 +82,57 @@ export function Footer() {
             <div className="mt-6 space-y-3">
               <motion.div
                 whileHover={{ x: 4 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-cyan-400"
+                className="flex items-center gap-3 text-sm text-slate-600 hover:text-purple-600 dark:text-slate-400 dark:hover:text-cyan-400"
               >
                 <Mail size={16} />
                 <a href="mailto:hello@cyberbrand.com">hello@cyberbrand.com</a>
               </motion.div>
+
               <motion.div
                 whileHover={{ x: 4 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-cyan-400"
+                className="flex items-center gap-3 text-sm text-slate-600 hover:text-purple-600 dark:text-slate-400 dark:hover:text-cyan-400"
               >
                 <Phone size={16} />
                 <a href="tel:+1234567890">+1 (234) 567-890</a>
               </motion.div>
-              <div className="flex items-center gap-3 text-sm text-slate-400">
+
+              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
                 <MapPin size={16} />
                 <span>New York, USA</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Shop Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="font-bold text-white">{t('shop.title')}</h4>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.shop.map((link) => (
-                <li key={link.label}>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-sm text-slate-400 transition-colors hover:text-cyan-400"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          {/* Links */}
+          {[
+            { title: t('shop.title'), links: footerLinks.shop },
+            { title: t('company.title'), links: footerLinks.company },
+            { title: t('support.title'), links: footerLinks.support },
+            { title: t('legal.title'), links: footerLinks.legal },
+          ].map((section, idx) => (
+            <motion.div key={idx} variants={itemVariants}>
+              <h4 className="font-bold text-slate-900 dark:text-white">{section.title}</h4>
 
-          {/* Company Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="font-bold text-white">{t('company.title')}</h4>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-sm text-slate-400 transition-colors hover:text-cyan-400"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Support Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="font-bold text-white">{t('support.title')}</h4>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.support.map((link) => (
-                <li key={link.label}>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-sm text-slate-400 transition-colors hover:text-cyan-400"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Legal Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="font-bold text-white">{t('legal.title')}</h4>
-            <ul className="mt-4 space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-sm text-slate-400 transition-colors hover:text-cyan-400"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+              <ul className="mt-4 space-y-2">
+                {section.links.map((link) => (
+                  <li key={link.label}>
+                    <motion.div whileHover={{ x: 4 }}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-slate-600 hover:text-purple-600 dark:text-slate-400 dark:hover:text-cyan-400"
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* Divider */}
-        <div className="my-8 h-px bg-linear-to-r from-transparent via-slate-700 to-transparent sm:my-12" />
+        <div className="my-8 h-px bg-linear-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700" />
 
         {/* Bottom Section */}
         <motion.div
@@ -205,11 +142,9 @@ export function Footer() {
           className="flex flex-col items-center justify-between gap-6 sm:flex-row"
         >
           {/* Copyright */}
-          <div className="text-center text-sm text-slate-500 sm:text-left">
-            <p>{t('copyright')}</p>
-          </div>
+          <p className="text-center text-sm text-slate-500 sm:text-left">{t('copyright')}</p>
 
-          {/* Social Links */}
+          {/* Social */}
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => {
               const Icon = social.icon;
@@ -219,8 +154,7 @@ export function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.2, y: -3 }}
                   whileTap={{ scale: 0.9 }}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 text-slate-400 transition-all hover:border-cyan-500 hover:bg-cyan-500/10 hover:text-cyan-400"
-                  aria-label={social.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 text-slate-600 hover:border-purple-500 hover:bg-purple-500/10 hover:text-purple-600 dark:border-slate-700 dark:text-slate-400 dark:hover:border-cyan-500 dark:hover:bg-cyan-500/10 dark:hover:text-cyan-400"
                 >
                   <Icon size={18} />
                 </motion.a>
@@ -228,7 +162,7 @@ export function Footer() {
             })}
           </div>
 
-          {/* Payment Methods */}
+          {/* Payment */}
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <span>Accept:</span>
             {['💳', '🏦', '📱'].map((icon, i) => (
@@ -240,22 +174,17 @@ export function Footer() {
         </motion.div>
       </div>
 
-      {/* Back to Top Button */}
+      {/* Back to top */}
       <motion.button
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-lg transition-all hover:shadow-2xl"
+        className="fixed right-8 bottom-8 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-2xl dark:from-cyan-500 dark:to-blue-500"
       >
         <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7-7m0 0l-7 7m7-7v12"
-          />
+          <path strokeWidth={2} d="M19 14l-7-7-7 7m7-7v12" />
         </svg>
       </motion.button>
     </footer>

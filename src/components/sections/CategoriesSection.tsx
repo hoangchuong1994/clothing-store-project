@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 export function CategoriesSection() {
   const t = useTranslations('home.categories');
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,9 +30,9 @@ export function CategoriesSection() {
   };
 
   return (
-    <section className="relative py-20 sm:py-32">
+    <section className="relative bg-white py-20 sm:py-32 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header */}
         <div className="mb-8 text-center sm:mb-12 lg:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -39,22 +40,30 @@ export function CategoriesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-cyan-400 bg-linear-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 text-xs font-bold text-cyan-300 shadow-lg shadow-cyan-500/20 backdrop-blur-md sm:mb-3 sm:px-4 sm:py-2 sm:text-sm">
-              <span className="relative flex h-1.5 w-1.5 rounded-full bg-cyan-400 sm:h-2 sm:w-2">
-                <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-cyan-400 opacity-75"></span>
+            {/* Badge */}
+            <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-300 bg-linear-to-r from-cyan-100 to-blue-100 px-3 py-1 text-xs font-bold text-cyan-700 shadow-sm sm:mb-3 sm:px-4 sm:py-2 sm:text-sm dark:border-cyan-500/50 dark:bg-cyan-500/10 dark:text-cyan-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500"></span>
               </span>
               {t('badge')}
             </p>
+
+            {/* Title */}
             <h2 className="text-3xl font-black sm:text-4xl md:text-5xl lg:text-6xl">
-              <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent dark:from-white dark:to-slate-300">
                 {t('title')}
               </span>
             </h2>
-            <p className="mt-3 text-base text-slate-400 sm:mt-4 sm:text-lg">{t('description')}</p>
+
+            {/* Description */}
+            <p className="mt-3 text-base text-slate-600 sm:mt-4 sm:text-lg dark:text-slate-400">
+              {t('description')}
+            </p>
           </motion.div>
         </div>
 
-        {/* Categories Grid */}
+        {/* Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -66,7 +75,7 @@ export function CategoriesSection() {
             <motion.div
               key={category.id}
               variants={itemVariants}
-              className="group relative h-48 overflow-hidden rounded-xl bg-slate-800 sm:h-56 lg:h-64"
+              className="group relative h-48 overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-xl sm:h-56 lg:h-64 dark:bg-slate-800"
             >
               {/* Image */}
               <Image
@@ -78,23 +87,24 @@ export function CategoriesSection() {
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-linear-to-r from-slate-950 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-linear-to-r from-white/80 via-white/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-slate-950/80 dark:via-slate-950/40" />
 
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <motion.h3
                   initial={{ y: 20, opacity: 0 }}
                   whileHover={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="text-2xl font-black text-white sm:text-3xl"
+                  className="text-2xl font-black text-slate-900 sm:text-3xl dark:text-white"
                 >
                   {category.name}
                 </motion.h3>
+
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   whileHover={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
-                  className="mt-4 flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2 font-bold text-white"
+                  className="mt-4 flex items-center gap-2 rounded-lg bg-linear-to-r from-cyan-500 to-blue-500 px-4 py-2 font-bold text-white"
                 >
                   {t('explore')} <ArrowRight size={18} />
                 </motion.div>
@@ -102,7 +112,7 @@ export function CategoriesSection() {
 
               {/* Badge */}
               <div className="absolute top-3 right-3 rounded-lg bg-cyan-500/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
-                {index + 1} of {categories.length}
+                {index + 1} / {categories.length}
               </div>
             </motion.div>
           ))}

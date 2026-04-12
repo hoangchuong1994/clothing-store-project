@@ -8,6 +8,7 @@ import { Quote } from 'lucide-react';
 
 export function TestimonialsSection() {
   const t = useTranslations('home.testimonials');
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,9 +30,9 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section className="relative py-20 sm:py-32">
+    <section className="relative bg-white py-20 sm:py-32 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,23 +40,28 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center sm:mb-16"
         >
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border-2 border-pink-400 bg-linear-to-r from-pink-500/20 to-purple-500/20 px-4 py-2 shadow-lg shadow-pink-500/20 backdrop-blur-md">
-            <span className="relative flex h-2 w-2 rounded-full bg-pink-400">
-              <span className="absolute inline-flex h-full w-full animate-pulse rounded-full bg-pink-400 opacity-75"></span>
+          {/* Badge */}
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-pink-300 bg-linear-to-r from-pink-100 to-purple-100 px-4 py-2 shadow-sm dark:border-pink-400 dark:from-pink-500/20 dark:to-purple-500/20 dark:shadow-lg dark:shadow-pink-500/20">
+            <span className="relative flex h-2 w-2 rounded-full bg-pink-500">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-400 opacity-75"></span>
             </span>
-            <span className="text-sm font-bold tracking-widest text-pink-300 uppercase">
+            <span className="text-sm font-bold tracking-widest text-pink-600 uppercase dark:text-pink-300">
               {t('badge')}
             </span>
           </div>
+
+          {/* Title */}
           <h2 className="text-4xl font-black sm:text-5xl md:text-6xl">
-            <span className="bg-linear-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-slate-900 via-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-white dark:to-slate-300">
               {t('title')}
             </span>
           </h2>
-          <p className="mt-4 text-lg text-slate-400">{t('description')}</p>
+
+          {/* Description */}
+          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">{t('description')}</p>
         </motion.div>
 
-        {/* Testimonials Grid */}
+        {/* Testimonials */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -67,35 +73,40 @@ export function TestimonialsSection() {
             <motion.div
               key={testimonial.id}
               variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: '0 20px 40px rgba(34, 211, 238, 0.15)' }}
-              className="group relative overflow-hidden rounded-xl border border-slate-700 bg-linear-to-r from-slate-800 to-slate-900 p-6 transition-all duration-300 sm:p-8"
+              whileHover={{
+                y: -6,
+                boxShadow: '0 20px 40px rgba(99, 102, 241, 0.15)',
+              }}
+              className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:border-purple-300 sm:p-8 dark:border-slate-700 dark:bg-linear-to-r dark:from-slate-800 dark:to-slate-900"
             >
-              {/* Background Gradient */}
-              <div className="absolute inset-0 -z-10 bg-linear-to-r from-cyan-500/5 to-purple-500/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              {/* Hover gradient */}
+              <div className="absolute inset-0 -z-10 bg-linear-to-r from-cyan-500/10 to-purple-500/10 opacity-0 transition-opacity group-hover:opacity-100" />
 
-              {/* Quote Icon */}
+              {/* Quote icon */}
               <motion.div
-                initial={{ scale: 0.8, opacity: 0.5 }}
+                initial={{ scale: 0.85, opacity: 0.6 }}
                 whileHover={{ scale: 1, opacity: 1 }}
-                className="inline-block rounded-lg bg-cyan-500/20 p-2 text-cyan-400"
+                className="inline-block rounded-lg bg-purple-100 p-2 text-purple-600 dark:bg-cyan-500/20 dark:text-cyan-400"
               >
-                <Quote size={24} />
+                <Quote size={22} />
               </motion.div>
 
-              {/* Rating */}
+              {/* Stars */}
               <div className="mt-4 flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i} className="text-xl text-yellow-400">
+                  <span key={i} className="text-lg text-yellow-400">
                     ★
                   </span>
                 ))}
               </div>
 
-              {/* Quote */}
-              <p className="mt-4 text-base text-slate-300 sm:text-lg">{testimonial.content}</p>
+              {/* Content */}
+              <p className="mt-4 text-base text-slate-700 sm:text-lg dark:text-slate-300">
+                {testimonial.content}
+              </p>
 
               {/* Author */}
-              <div className="mt-6 flex items-center gap-3 border-t border-slate-700 pt-6">
+              <div className="mt-6 flex items-center gap-3 border-t border-slate-200 pt-6 dark:border-slate-700">
                 <div className="relative h-12 w-12 overflow-hidden rounded-full">
                   <Image
                     src={testimonial.avatar}
@@ -106,15 +117,19 @@ export function TestimonialsSection() {
                   />
                 </div>
                 <div>
-                  <div className="font-bold text-white">{testimonial.author}</div>
-                  <div className="text-sm text-slate-400">{testimonial.role}</div>
+                  <div className="font-bold text-slate-900 dark:text-white">
+                    {testimonial.author}
+                  </div>
+                  <div className="text-sm text-slate-500 dark:text-slate-400">
+                    {testimonial.role}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Trust Badges */}
+        {/* Trust badges */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -131,10 +146,14 @@ export function TestimonialsSection() {
             <motion.div
               key={index}
               whileHover={{ y: -5 }}
-              className="rounded-lg border border-slate-700 bg-slate-800/50 p-4 text-center backdrop-blur-sm sm:p-6"
+              className="rounded-lg border border-slate-200 bg-white p-4 text-center shadow-sm backdrop-blur-sm sm:p-6 dark:border-slate-700 dark:bg-slate-800/50"
             >
-              <div className="text-2xl font-black text-cyan-400 sm:text-3xl">{badge.number}</div>
-              <div className="mt-2 text-sm font-medium text-slate-400 sm:mt-3">{badge.label}</div>
+              <div className="text-2xl font-black text-purple-600 sm:text-3xl dark:text-cyan-400">
+                {badge.number}
+              </div>
+              <div className="mt-2 text-sm font-medium text-slate-600 sm:mt-3 dark:text-slate-400">
+                {badge.label}
+              </div>
             </motion.div>
           ))}
         </motion.div>
