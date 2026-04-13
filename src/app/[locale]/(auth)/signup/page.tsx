@@ -1,3 +1,7 @@
+'use client';
+
+import { AuthShell } from '@/components/auth/AuthShell';
+
 export default function SignUpPage() {
-  return <div>SignUpPage</div>;
+  return <AuthShell defaultTab="register" />;
 }

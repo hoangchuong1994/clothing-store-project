@@ -1,5 +1,7 @@
-import React from 'react';
+'use client';
+
+import { AuthShell } from '@/components/auth/AuthShell';
 
 export default function SignInPage() {
-  return <div>SignInPage</div>;
+  return <AuthShell defaultTab="login" />;
 }

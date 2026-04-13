@@ -10,6 +10,7 @@ import { UserMenu } from './UserMenu';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { ModeToggle } from '@/components/ModeToggle';
+import { Link } from '@/i18n/navigation';
 
 interface HeaderProps {
   cartItems?: number;
@@ -82,7 +83,9 @@ export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderPr
 
           {/* User Menu */}
           <div className="hidden sm:block">
-            <UserMenu isLoggedIn={isLoggedIn} onLogout={onLogout} />
+            <Link href="/signin">
+              <UserMenu isLoggedIn={isLoggedIn} onLogout={onLogout} />
+            </Link>
           </div>
 
           {/* Language Switcher */}
