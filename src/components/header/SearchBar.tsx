@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Search, X } from 'lucide-react';
+import { Search, CloseIcon } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -95,7 +95,7 @@ export function SearchBar() {
                       className="text-muted-foreground shrink-0 rounded-full p-2"
                       aria-label={t('action.close')}
                     >
-                      <X className="h-5 w-5" />
+                      <CloseIcon className="h-5 w-5" />
                     </button>
                   </div>
 

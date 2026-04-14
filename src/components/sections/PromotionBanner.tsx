@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { ChevronRight, Zap } from 'lucide-react';
+import { ChevronRight, Zap } from '@/components/ui/icon';
 
 export function PromotionBanner() {
   const t = useTranslations('home.promotionBanner');

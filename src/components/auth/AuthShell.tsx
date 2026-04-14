@@ -1,16 +1,15 @@
-'use client';
+﻿'use client';
 
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
-import { useForm, useWatch } from 'react-hook-form';
-import { Eye, EyeOff, GitBranch, Globe, Moon, Sun, ShieldCheck, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
+import { LoginForm } from '@/components/auth/LoginForm';
+import { RegisterForm } from '@/components/auth/RegisterForm';
+import { Sparkles, ShieldCheck, Moon, Sun } from '@/components/ui/icon';
+import { cn } from '@/lib/utils';
 
 type AuthTab = 'login' | 'register';
 
@@ -18,96 +17,96 @@ interface AuthShellProps {
   defaultTab?: AuthTab;
 }
 
-interface LoginValues {
-  email: string;
-  password: string;
-  remember: boolean;
-}
+type ToastVariant = 'success' | 'info' | 'error';
 
-interface RegisterValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+interface ToastState {
+  message: string;
+  variant: ToastVariant;
 }
 
 const transition = { duration: 0.28, ease: 'easeOut' as const };
 
-const strengthLevels = [
-  { labelKey: 'strength.tooWeak', color: 'bg-rose-500' },
-  { labelKey: 'strength.fair', color: 'bg-amber-400' },
-  { labelKey: 'strength.good', color: 'bg-sky-400' },
-  { labelKey: 'strength.strong', color: 'bg-emerald-400' },
-];
-
-function getPasswordStrength(password: string) {
-  let score = 0;
-  if (password.length >= 8) score++;
-  if (/[A-Z]/.test(password)) score++;
-  if (/[0-9]/.test(password)) score++;
-  if (/[^A-Za-z0-9]/.test(password)) score++;
-  return Math.min(score, strengthLevels.length - 1);
+function ToastBanner({ message, variant, onClose }: ToastState & { onClose: () => void }) {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className={cn(
+        'fixed top-6 left-1/2 z-50 w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 rounded-3xl border px-5 py-4 text-sm shadow-xl shadow-slate-950/10',
+        variant === 'success' && 'border-emerald-200 bg-emerald-50 text-emerald-950',
+        variant === 'info' && 'border-slate-200 bg-slate-50 text-slate-950',
+        variant === 'error' && 'border-rose-200 bg-rose-50 text-rose-950',
+      )}
+    >
+      <div className="flex items-center justify-between gap-4">
+        <p>{message}</p>
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-full p-2 text-slate-500 transition hover:bg-slate-200 hover:text-slate-900"
+          aria-label="Dismiss notification"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
   const t = useTranslations('auth');
   const [activeTab, setActiveTab] = React.useState<AuthTab>(defaultTab);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
+  const [toast, setToast] = React.useState<ToastState | null>(null);
   const { theme, resolvedTheme, setTheme } = useTheme();
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
-  const loginForm = useForm<LoginValues>({
-    mode: 'onTouched',
-    defaultValues: { email: '', password: '', remember: true },
-  });
+  React.useEffect(() => {
+    if (!toast) return;
 
-  const registerForm = useForm<RegisterValues>({
-    mode: 'onTouched',
-    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
-  });
+    const timer = window.setTimeout(() => setToast(null), 3600);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
 
-  const passwordValue = useWatch({
-    control: registerForm.control,
-    name: 'password',
-    defaultValue: '',
-  });
-
-  const passwordScore = getPasswordStrength(passwordValue ?? '');
-  const strength = strengthLevels[passwordScore];
-  const progressWidth = `${(passwordScore / (strengthLevels.length - 1)) * 100}%`;
-
-  const currentTheme = mounted ? theme || resolvedTheme : 'light';
-  const themeLabel = currentTheme === 'dark' ? t('theme.lightMode') : t('theme.darkMode');
+  const isDarkMode = mounted ? theme === 'dark' || resolvedTheme === 'dark' : false;
+  const themeLabel = mounted
+    ? isDarkMode
+      ? t('theme.lightMode')
+      : t('theme.darkMode')
+    : t('theme.darkMode');
   const pageHeading = activeTab === 'login' ? t('form.loginHeading') : t('form.registerHeading');
   const accountPrompt = activeTab === 'login' ? t('footer.newHere') : t('footer.haveAccount');
   const accountAction = activeTab === 'login' ? t('footer.createAccount') : t('footer.signIn');
   const accountHref = activeTab === 'login' ? '/signup' : '/signin';
 
-  const onLoginSubmit = async (values: LoginValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 650));
-    console.log('Login', values);
+  const handleAuthSuccess = (action: 'login' | 'register') => {
+    setToast({
+      message: action === 'login' ? 'Signed in successfully.' : 'Account created successfully.',
+      variant: 'success',
+    });
   };
 
-  const onRegisterSubmit = async (values: RegisterValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 650));
-    console.log('Register', values);
+  const handleSocialAuth = (provider: 'google' | 'github') => {
+    setToast({
+      message: `${provider === 'google' ? 'Google' : 'GitHub'} sign-in is not configured yet.`,
+      variant: 'info',
+    });
   };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] px-4 py-10 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
+      {toast && <ToastBanner {...toast} onClose={() => setToast(null)} />}
       <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-white/70 to-transparent dark:from-slate-950/80" />
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={transition}
-        className="relative mx-auto grid max-w-6xl gap-8 overflow-hidden rounded-[2rem] border border-slate-900/5 bg-white/80 shadow-[0_40px_120px_rgba(15,23,42,0.12)] backdrop-blur-xl md:grid-cols-[1.15fr_1fr] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-none"
+        className="relative mx-auto grid max-w-6xl gap-8 overflow-hidden rounded-[2rem] border border-slate-900/5 bg-white/80 shadow-[0_40px_120px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:gap-6 md:grid-cols-[1.15fr_1fr] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-none"
       >
-        <div className="relative overflow-hidden rounded-[2rem] bg-linear-to-br from-slate-950 via-slate-900 to-purple-950 p-8 text-white shadow-2xl shadow-slate-950/20 sm:p-10">
+        <div className="order-last rounded-[2rem] bg-linear-to-br from-slate-950 via-slate-900 to-purple-950 p-8 text-white shadow-2xl shadow-slate-950/20 sm:p-10 md:order-first">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(129,140,248,0.25),transparent_20%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.16),transparent_20%)]" />
           <div className="relative flex h-full flex-col justify-between gap-8">
             <div className="space-y-6">
@@ -142,7 +141,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
           </div>
         </div>
 
-        <div className="relative flex flex-col gap-6 p-6 sm:p-8">
+        <div className="relative z-50 flex flex-col gap-6 p-6 sm:p-8 md:order-last">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold tracking-[0.24em] text-slate-500 uppercase dark:text-slate-400">
@@ -156,10 +155,18 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
               variant="ghost"
               size="icon"
               className="border border-slate-200/80 bg-slate-100/80 text-slate-700 transition hover:scale-[1.03] hover:bg-slate-200 hover:text-slate-900 dark:border-slate-700/80 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
-              onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
               aria-label={themeLabel}
             >
-              {currentTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {mounted ? (
+                isDarkMode ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )
+              ) : (
+                <span className="h-4 w-4" />
+              )}
             </Button>
           </div>
 
@@ -204,137 +211,14 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
                   transition={transition}
                   className="space-y-6"
                 >
-                  <div className="grid gap-4">
-                    <div>
-                      <Label htmlFor="login-email">{t('signin.email')}</Label>
-                      <Input
-                        id="login-email"
-                        type="email"
-                        autoComplete="email"
-                        placeholder={t('form.placeholderEmail')}
-                        {...loginForm.register('email', {
-                          required: t('validation.required'),
-                          pattern: {
-                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                            message: t('validation.emailInvalid'),
-                          },
-                        })}
-                        className="mt-2"
-                        aria-invalid={loginForm.formState.errors.email ? 'true' : 'false'}
-                      />
-                      {loginForm.formState.errors.email && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {loginForm.formState.errors.email.message}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="login-password">{t('signin.password')}</Label>
-                        <button
-                          type="button"
-                          onClick={(event) => event.preventDefault()}
-                          className="text-sm font-medium text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-                        >
-                          {t('form.forgotPassword')}
-                        </button>
-                      </div>
-                      <div className="relative mt-2">
-                        <Input
-                          id="login-password"
-                          type={showPassword ? 'text' : 'password'}
-                          autoComplete="current-password"
-                          placeholder={t('form.placeholderPassword')}
-                          {...loginForm.register('password', {
-                            required: t('validation.required'),
-                            minLength: {
-                              value: 8,
-                              message: t('validation.passwordMin'),
-                            },
-                          })}
-                          className="pr-12"
-                          aria-invalid={loginForm.formState.errors.password ? 'true' : 'false'}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword((value) => !value)}
-                          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
-                          aria-label={
-                            showPassword ? t('form.hidePassword') : t('form.showPassword')
-                          }
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
-                      {loginForm.formState.errors.password && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {loginForm.formState.errors.password.message}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between gap-3">
-                      <label className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                        <input
-                          type="checkbox"
-                          className="text-primary focus:ring-primary/60 h-4 w-4 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-900"
-                          {...loginForm.register('remember')}
-                        />
-                        {t('form.rememberMe')}
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Button
-                      type="button"
-                      className="w-full rounded-3xl px-5 py-3 text-base font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                      onClick={loginForm.handleSubmit(onLoginSubmit)}
-                      disabled={loginForm.formState.isSubmitting}
-                    >
-                      {loginForm.formState.isSubmitting ? t('form.signingIn') : t('signin.button')}
-                    </Button>
-
-                    <div className="flex items-center justify-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-                      <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-                      {t('form.orContinueWith')}
-                      <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-                    </div>
-
-                    <div className="grid gap-3">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="default"
-                        className="w-full gap-2 rounded-3xl border-slate-200 bg-white/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
-                      >
-                        <Globe className="h-4 w-4" />
-                        {t('social.continueWithGoogle')}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="default"
-                        className="w-full gap-2 rounded-3xl border-slate-200 bg-white/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
-                      >
-                        <GitBranch className="h-4 w-4" />
-                        {t('social.continueWithGitHub')}
-                      </Button>
-                    </div>
-                  </div>
+                  <LoginForm
+                    onSubmit={async (values) => {
+                      await new Promise((resolve) => setTimeout(resolve, 650));
+                      handleAuthSuccess('login');
+                      console.log('Login', values);
+                    }}
+                    onSocialAuth={handleSocialAuth}
+                  />
                 </motion.div>
               ) : (
                 <motion.div
@@ -345,204 +229,14 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
                   transition={transition}
                   className="space-y-6"
                 >
-                  <div className="grid gap-4">
-                    <div>
-                      <Label htmlFor="register-name">{t('signup.name')}</Label>
-                      <Input
-                        id="register-name"
-                        type="text"
-                        autoComplete="name"
-                        placeholder={t('form.placeholderName')}
-                        {...registerForm.register('name', {
-                          required: t('validation.nameRequired'),
-                        })}
-                        className="mt-2"
-                        aria-invalid={registerForm.formState.errors.name ? 'true' : 'false'}
-                      />
-                      {registerForm.formState.errors.name && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {registerForm.formState.errors.name.message}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label htmlFor="register-email">{t('signup.email')}</Label>
-                      <Input
-                        id="register-email"
-                        type="email"
-                        autoComplete="email"
-                        placeholder={t('form.placeholderEmail')}
-                        {...registerForm.register('email', {
-                          required: t('validation.required'),
-                          pattern: {
-                            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                            message: t('validation.emailInvalid'),
-                          },
-                        })}
-                        className="mt-2"
-                        aria-invalid={registerForm.formState.errors.email ? 'true' : 'false'}
-                      />
-                      {registerForm.formState.errors.email && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {registerForm.formState.errors.email.message}
-                        </motion.p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label htmlFor="register-password">{t('signup.password')}</Label>
-                      <div className="relative mt-2">
-                        <Input
-                          id="register-password"
-                          type={showPassword ? 'text' : 'password'}
-                          autoComplete="new-password"
-                          placeholder={t('form.placeholderPasswordCreate')}
-                          {...registerForm.register('password', {
-                            required: t('validation.required'),
-                            minLength: { value: 8, message: t('validation.passwordMin') },
-                          })}
-                          className="pr-12"
-                          aria-invalid={registerForm.formState.errors.password ? 'true' : 'false'}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword((value) => !value)}
-                          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
-                          aria-label={
-                            showPassword ? t('form.hidePassword') : t('form.showPassword')
-                          }
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
-                      {registerForm.formState.errors.password && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {registerForm.formState.errors.password.message}
-                        </motion.p>
-                      )}
-                      <div className="mt-3 rounded-3xl border border-slate-200 bg-white/80 p-3 text-sm dark:border-slate-800 dark:bg-slate-950/80">
-                        <div className="flex items-center justify-between gap-4 text-slate-600 dark:text-slate-300">
-                          <span>{t('form.passwordStrength')}</span>
-                          <span className="font-semibold text-slate-900 dark:text-slate-100">
-                            {t(strength.labelKey)}
-                          </span>
-                        </div>
-                        <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                          <div
-                            className={cn(
-                              'h-full rounded-full transition-all duration-300',
-                              strength.color,
-                            )}
-                            style={{ width: progressWidth }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="register-confirm-password">
-                        {t('signup.confirmPassword')}
-                      </Label>
-                      <div className="relative mt-2">
-                        <Input
-                          id="register-confirm-password"
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          autoComplete="new-password"
-                          placeholder={t('form.placeholderPasswordRepeat')}
-                          {...registerForm.register('confirmPassword', {
-                            required: t('validation.confirmPassword'),
-                            validate: (value) =>
-                              value === registerForm.getValues('password') ||
-                              t('validation.passwordMismatch'),
-                          })}
-                          className="pr-12"
-                          aria-invalid={
-                            registerForm.formState.errors.confirmPassword ? 'true' : 'false'
-                          }
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowConfirmPassword((value) => !value)}
-                          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
-                          aria-label={
-                            showConfirmPassword ? t('form.hidePassword') : t('form.showPassword')
-                          }
-                        >
-                          {showConfirmPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
-                      {registerForm.formState.errors.confirmPassword && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 text-sm text-rose-500"
-                        >
-                          {registerForm.formState.errors.confirmPassword.message}
-                        </motion.p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <Button
-                      type="button"
-                      className="w-full rounded-3xl px-5 py-3 text-base font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                      onClick={registerForm.handleSubmit(onRegisterSubmit)}
-                      disabled={registerForm.formState.isSubmitting}
-                    >
-                      {registerForm.formState.isSubmitting
-                        ? t('form.creatingAccount')
-                        : t('signup.button')}
-                    </Button>
-
-                    <div className="flex items-center justify-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-                      <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-                      {t('form.orContinueWith')}
-                      <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-                    </div>
-
-                    <div className="grid gap-3">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="default"
-                        className="w-full gap-2 rounded-3xl border-slate-200 bg-white/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
-                      >
-                        <Globe className="h-4 w-4" />
-                        {t('social.continueWithGoogle')}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="default"
-                        className="w-full gap-2 rounded-3xl border-slate-200 bg-white/80 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
-                      >
-                        <GitBranch className="h-4 w-4" />
-                        {t('social.continueWithGitHub')}
-                      </Button>
-                    </div>
-                  </div>
+                  <RegisterForm
+                    onSubmit={async (values) => {
+                      await new Promise((resolve) => setTimeout(resolve, 650));
+                      handleAuthSuccess('register');
+                      console.log('Register', values);
+                    }}
+                    onSocialAuth={handleSocialAuth}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, CloseIcon } from '@/components/ui/icon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, usePathname } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
@@ -45,7 +45,7 @@ export function MobileMenu() {
         aria-expanded={isOpen}
       >
         <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isOpen ? <CloseIcon className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </motion.div>
       </button>
 

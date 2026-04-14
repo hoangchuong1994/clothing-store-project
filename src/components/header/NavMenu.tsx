@@ -11,7 +11,7 @@ export function NavMenu() {
   return (
     <nav className="hidden items-center gap-1 md:flex">
       {navItems.map((item) => {
-        const href = `/${item.href}`;
+        const href = `${item.href}`;
         const isActive = pathname.includes(item.href);
 
         return (

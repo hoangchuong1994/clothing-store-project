@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { categories } from '@/lib/data';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 
 export function CategoriesSection() {

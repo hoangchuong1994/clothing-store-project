@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Moon, Sun, Check } from 'lucide-react';
+import { Moon, Sun, Check } from '@/components/ui/icon';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 

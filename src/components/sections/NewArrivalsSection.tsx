@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { newArrivals } from '@/lib/data';
 import { ProductCard } from '@/components/ProductCard';
-import { Zap } from 'lucide-react';
+import { Zap } from '@/components/ui/icon';
 
 export function NewArrivalsSection() {
   const t = useTranslations('home.newArrivals');

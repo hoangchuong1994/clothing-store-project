@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
-import { Globe, Check } from 'lucide-react';
+import { Globe, Check } from '@/components/ui/icon';
 import { useLocale, useTranslations } from 'next-intl';
 import {
   DropdownMenu,

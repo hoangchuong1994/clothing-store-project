@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { testimonials } from '@/lib/data';
-import { Quote } from 'lucide-react';
+import { Quote } from '@/components/ui/icon';
 
 export function TestimonialsSection() {
   const t = useTranslations('home.testimonials');

@@ -1,9 +1,9 @@
 {
   "hero": {
-    "badge": "Crafted for Gen Z",
+    "badge": "Fashion for Gen Z",
     "headline1": "Wear Your",
     "headline2": "Digital Soul",
-    "description": "Streetwear meets cyber. Bold drops. Limited pieces. Infinite vibe. Your fit, amplified.",
+    "description": "Fashion meets cyber. Bold new arrivals. Limited collections. Infinite vibe. Your style, amplified.",
     "primaryCta": "Shop Now",
     "secondaryCta": "Explore Collections",
     "scrollIndicator": "Scroll to explore"
@@ -36,7 +36,7 @@
   },
   "testimonials": {
     "title": "What People Are Saying",
-    "description": "Join thousands of satisfied customers rocking our gear",
+    "description": "Join thousands of satisfied customers wearing our clothing",
     "badge": "LOVED BY GEN Z",
     "trust": {
       "customers": "Happy Customers",

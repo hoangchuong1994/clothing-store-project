@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Heart, Eye } from 'lucide-react';
+import { ShoppingCart, Heart, Eye } from '@/components/ui/icon';
 import { Product } from '@/lib/data';
 import { useState } from 'react';
 

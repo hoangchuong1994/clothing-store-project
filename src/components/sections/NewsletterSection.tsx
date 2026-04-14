@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight } from '@/components/ui/icon';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 

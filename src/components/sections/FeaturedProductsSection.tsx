@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { featuredProducts } from '@/lib/data';
 import { ProductCard } from '@/components/ProductCard';
-import { Flame } from 'lucide-react';
+import { Flame } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 
 export function FeaturedProductsSection() {

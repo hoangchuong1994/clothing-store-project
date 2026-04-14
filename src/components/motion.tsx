@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useViewportScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, useViewportScroll, useTransform } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface AnimatedSectionProps {
@@ -34,11 +34,10 @@ export function AnimatedSection({
 
 interface ParallaxProps {
   children: ReactNode;
-  offset?: number;
   className?: string;
 }
 
-export function Parallax({ children, offset = 50, className = '' }: ParallaxProps) {
+export function Parallax({ children, className = '' }: ParallaxProps) {
   const { scrollY } = useViewportScroll();
   const y = useTransform(scrollY, (value) => value * 0.5);
 

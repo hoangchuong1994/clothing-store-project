@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { User } from 'lucide-react';
+import { User } from '@/components/ui/icon';
 import {
   DropdownMenu,
   DropdownMenuContent,

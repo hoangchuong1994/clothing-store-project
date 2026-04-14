@@ -3,7 +3,15 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Heart, Share2, Send, Play, Mail, Phone, MapPin } from 'lucide-react';
+import {
+  Heart,
+  TwitterIcon,
+  FacebookIcon,
+  YoutubeIcon,
+  Mail,
+  Phone,
+  MapPin,
+} from '@/components/ui/icon';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -37,9 +45,9 @@ export function Footer() {
 
   const socialLinks = [
     { icon: Heart, href: '#', label: t('social.instagram') },
-    { icon: Share2, href: '#', label: t('social.twitter') },
-    { icon: Send, href: '#', label: t('social.facebook') },
-    { icon: Play, href: '#', label: t('social.youtube') },
+    { icon: TwitterIcon, href: '#', label: t('social.twitter') },
+    { icon: FacebookIcon, href: '#', label: t('social.facebook') },
+    { icon: YoutubeIcon, href: '#', label: t('social.youtube') },
   ];
 
   const containerVariants = {

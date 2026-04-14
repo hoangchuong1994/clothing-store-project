@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight, Sparkles } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 
 export function HeroSection() {

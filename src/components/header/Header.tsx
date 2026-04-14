@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { NavMenu } from './NavMenu';
