@@ -1,11 +1,10 @@
 ﻿'use client';
-
+import { useSyncExternalStore } from 'react';
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { Sparkles, ShieldCheck, Moon, Sun } from '@/components/ui/icon';
@@ -25,6 +24,14 @@ interface ToastState {
 }
 
 const transition = { duration: 0.28, ease: 'easeOut' as const };
+
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
 
 function ToastBanner({ message, variant, onClose }: ToastState & { onClose: () => void }) {
   return (
@@ -56,13 +63,9 @@ function ToastBanner({ message, variant, onClose }: ToastState & { onClose: () =
 export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
   const t = useTranslations('auth');
   const [activeTab, setActiveTab] = React.useState<AuthTab>(defaultTab);
-  const [mounted, setMounted] = React.useState(false);
+
   const [toast, setToast] = React.useState<ToastState | null>(null);
   const { theme, resolvedTheme, setTheme } = useTheme();
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   React.useEffect(() => {
     if (!toast) return;
@@ -71,6 +74,8 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
     return () => window.clearTimeout(timer);
   }, [toast]);
 
+  const mounted = useIsClient();
+
   const isDarkMode = mounted ? theme === 'dark' || resolvedTheme === 'dark' : false;
   const themeLabel = mounted
     ? isDarkMode
@@ -78,9 +83,9 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
       : t('theme.darkMode')
     : t('theme.darkMode');
   const pageHeading = activeTab === 'login' ? t('form.loginHeading') : t('form.registerHeading');
-  const accountPrompt = activeTab === 'login' ? t('footer.newHere') : t('footer.haveAccount');
-  const accountAction = activeTab === 'login' ? t('footer.createAccount') : t('footer.signIn');
-  const accountHref = activeTab === 'login' ? '/signup' : '/signin';
+  // const accountPrompt = activeTab === 'login' ? t('footer.newHere') : t('footer.haveAccount');
+  // const accountAction = activeTab === 'login' ? t('footer.createAccount') : t('footer.signIn');
+  // const accountHref = activeTab === 'login' ? '/signup' : '/signin';
 
   const handleAuthSuccess = (action: 'login' | 'register') => {
     setToast({
@@ -97,9 +102,8 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] px-4 py-10 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
       {toast && <ToastBanner {...toast} onClose={() => setToast(null)} />}
-      <div className="absolute inset-x-0 top-0 h-40 bg-linear-to-b from-white/70 to-transparent dark:from-slate-950/80" />
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -242,16 +246,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
             </AnimatePresence>
           </div>
 
-          <div className="flex flex-col gap-2 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400">
-            <p>
-              {accountPrompt}{' '}
-              <Link
-                href={accountHref}
-                className="font-semibold text-slate-950 underline-offset-4 transition hover:text-slate-700 dark:text-slate-100 dark:hover:text-slate-50"
-              >
-                {accountAction}
-              </Link>
-            </p>
+          <div className="flex gap-2 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400">
             <p className="text-xs text-slate-400">{t('footer.onboarding')}</p>
           </div>
         </div>
