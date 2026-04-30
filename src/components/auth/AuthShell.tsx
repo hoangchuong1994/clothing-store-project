@@ -102,7 +102,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
+    <div className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
       {toast && <ToastBanner {...toast} onClose={() => setToast(null)} />}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -145,7 +145,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
           </div>
         </div>
 
-        <div className="relative z-50 flex flex-col gap-6 p-6 sm:p-8 md:order-last">
+        <div className="relative z-50 flex flex-col gap-4 p-6 sm:p-8 md:order-last">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold tracking-[0.24em] text-slate-500 uppercase dark:text-slate-400">

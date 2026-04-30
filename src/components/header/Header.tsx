@@ -74,7 +74,7 @@ export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderPr
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                className="bg-destructive text-destructive-foreground absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs font-bold sm:h-5 sm:w-5"
+                className="bg-destructive absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs font-bold text-white sm:h-5 sm:w-5"
               >
                 {cartItems > 9 ? '9+' : cartItems}
               </motion.span>
