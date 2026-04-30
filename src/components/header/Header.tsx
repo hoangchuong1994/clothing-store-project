@@ -11,6 +11,9 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { ModeToggle } from '@/components/ModeToggle';
 import { Link } from '@/i18n/navigation';
+import { CartDrawer } from '@/components/cart';
+import { useCartDrawer } from '@/hooks/cart/useCartDrawer';
+import { useCart } from '@/hooks/cart/useCart';
 
 interface HeaderProps {
   cartItems?: number;
@@ -21,6 +24,8 @@ interface HeaderProps {
 export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderProps) {
   const t = useTranslations('header');
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isOpen: isCartOpen, toggle: toggleCart, close: closeCart } = useCartDrawer();
+  const { itemCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,20 +68,21 @@ export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderPr
 
           {/* Cart */}
           <motion.button
+            onClick={toggleCart}
             whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className="text-foreground focus-visible:ring-ring relative inline-flex items-center justify-center rounded-md p-2 focus-visible:ring-2 focus-visible:outline-none"
-            aria-label={`Shopping cart with ${cartItems} items`}
+            aria-label={`Shopping cart with ${itemCount} items`}
           >
             <ShoppingCart className="h-5 w-5" />
-            {cartItems > 0 && (
+            {itemCount > 0 && (
               <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 15 }}
                 className="bg-destructive absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-xs font-bold text-white sm:h-5 sm:w-5"
               >
-                {cartItems > 9 ? '9+' : cartItems}
+                {itemCount > 9 ? '9+' : itemCount}
               </motion.span>
             )}
           </motion.button>
@@ -99,6 +105,9 @@ export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderPr
           </div>
         </div>
       </div>
+
+      {/* Cart Drawer */}
+      <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
     </header>
   );
 }

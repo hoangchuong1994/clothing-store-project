@@ -10,6 +10,7 @@ export const navItems: NavItem[] = [
   { id: 'new', labelKey: 'nav.new', href: '/new' },
   { id: 'drops', labelKey: 'nav.drops', href: '/drops' },
   { id: 'sale', labelKey: 'nav.sale', href: '/sale' },
+  { id: 'products', labelKey: 'nav.products', href: '/products' },
 ];
 
 export type UserMenuOption = {

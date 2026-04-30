@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { categories } from '@/lib/data';
+import { categories } from '@/lib/data/ui';
 import { ArrowRight } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 

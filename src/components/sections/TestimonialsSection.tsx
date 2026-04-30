@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { testimonials } from '@/lib/data';
+import { testimonials } from '@/lib/data/ui';
 import { Quote } from '@/components/ui/icon';
 
 export function TestimonialsSection() {

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'Cyber Brand',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1556821552-5ff63b1ba891?w=1200&h=630&fit=crop',
+        url: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
         alt: 'Cyber Brand - Premium Streetwear',

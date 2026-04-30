@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { ReduxProvider } from '@/lib/client/providers/ReduxProvider';
 
 export default async function LocaleLayout({
   children,
@@ -16,5 +17,9 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  return <NextIntlClientProvider locale={locale}>{children}</NextIntlClientProvider>;
+  return (
+    <NextIntlClientProvider locale={locale}>
+      <ReduxProvider>{children}</ReduxProvider>
+    </NextIntlClientProvider>
+  );
 }

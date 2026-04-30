@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { newArrivals } from '@/lib/data';
+import { newArrivals } from '@/lib/data/ui';
 import { ProductCard } from '@/components/ProductCard';
 import { Zap } from '@/components/ui/icon';
 
