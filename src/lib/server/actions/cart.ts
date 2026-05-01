@@ -27,7 +27,6 @@ import {
   findCartItemByProduct,
   findCartItem,
   createEmptyCart,
-  calculateCartTotals,
 } from '../cart/utils';
 import { getProduct, getUserCart, saveUserCart, deleteUserCart, checkStock } from '../cart/db';
 import { getCurrentUserSession } from './auth'; // We'll create a stub for this

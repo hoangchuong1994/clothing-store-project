@@ -16,12 +16,11 @@ import { useCartDrawer } from '@/hooks/cart/useCartDrawer';
 import { useCart } from '@/hooks/cart/useCart';
 
 interface HeaderProps {
-  cartItems?: number;
   isLoggedIn?: boolean;
   onLogout?: () => void;
 }
 
-export function Header({ cartItems = 0, isLoggedIn = false, onLogout }: HeaderProps) {
+export function Header({ isLoggedIn = false, onLogout }: HeaderProps) {
   const t = useTranslations('header');
   const [isScrolled, setIsScrolled] = useState(false);
   const { isOpen: isCartOpen, toggle: toggleCart, close: closeCart } = useCartDrawer();

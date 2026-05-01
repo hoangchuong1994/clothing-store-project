@@ -5,10 +5,10 @@
 
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/lib/client/redux/store';
-import { initializeCart, syncCart } from '@/lib/client/redux/cartSlice';
+import { AppDispatch } from '@/lib/client/redux/store';
+import { initializeCart } from '@/lib/client/redux/cartSlice';
 import {
   saveCartToLocalStorage,
   loadCartFromLocalStorage,

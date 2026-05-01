@@ -5,7 +5,6 @@
  */
 
 import { Cart } from '@/lib/types/cart';
-import { getProduct, getProducts, checkStock, getAllProducts } from '@/lib/db/products';
 
 /**
  * Simulated user cart database

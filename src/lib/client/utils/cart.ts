@@ -76,7 +76,8 @@ export function isLocalStorageAvailable(): boolean {
     localStorage.setItem(test, test);
     localStorage.removeItem(test);
     return true;
-  } catch (error) {
+  } catch (error: unknown) {
+    console.warn('localStorage is not available:', error);
     return false;
   }
 }
@@ -199,7 +200,7 @@ export function itemsToCart(items: CartItem[]): Cart {
  * Debounce function for quantity updates
  * Prevents rapid API calls during quantity changes
  */
-export function createDebounce<T extends (...args: any[]) => any>(fn: T, delayMs: number = 500) {
+export function createDebounce<T extends (...args: unknown[]) => unknown>(fn: T, delayMs: number = 500) {
   let timeoutId: NodeJS.Timeout | null = null;
 
   return function debounced(...args: Parameters<T>) {

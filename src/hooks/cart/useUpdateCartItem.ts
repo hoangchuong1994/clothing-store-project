@@ -14,7 +14,6 @@ import {
   updateCartItemError,
 } from '@/lib/client/redux/cartSlice';
 import { updateCartItem as updateCartItemAction } from '@/lib/server/actions/cart';
-import { createDebounce } from '@/lib/client/utils/cart';
 
 interface UseUpdateCartItemOptions {
   debounceMs?: number;

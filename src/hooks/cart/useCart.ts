@@ -7,7 +7,7 @@
 
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/lib/client/redux/store';
+import { AppDispatch } from '@/lib/client/redux/store';
 import {
   selectCartItems,
   selectCartError,
@@ -18,7 +18,6 @@ import {
   selectCartItemCount,
   clearError,
 } from '@/lib/client/redux/cartSlice';
-import { CartItem } from '@/lib/types/cart';
 
 export function useCart() {
   const dispatch = useDispatch<AppDispatch>();
