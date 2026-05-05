@@ -1,15 +1,6 @@
-/**
- * UI Data Layer
- * Derives display data from the main product database
- * No duplication - single source of truth in lib/db/products.ts
- */
+import { Category, Product, Testimonial } from '../types';
+import { PRODUCTS } from '../server/data';
 
-import { PRODUCTS_DB } from '@/lib/db/products';
-import { Category, Testimonial } from '@/lib/types/product';
-
-/**
- * Categories for UI display
- */
 export const categories: Category[] = [
   {
     id: '1',
@@ -41,31 +32,22 @@ export const categories: Category[] = [
   },
 ];
 
-/**
- * Featured products - derived from main database
- * These are highlighted products for the homepage
- */
-export const featuredProducts = [
-  PRODUCTS_DB['prod-006'], // Cyber Oversized Hoodie
-  PRODUCTS_DB['prod-007'], // Neon Grid T-Shirt
-  PRODUCTS_DB['prod-008'], // Streetwear Cargo Pants
-  PRODUCTS_DB['prod-009'], // Premium Snapback Cap
-].filter(Boolean); // Filter out any undefined products
+const productById = (id: string) => PRODUCTS.find((product) => product.id === id);
 
-/**
- * New arrivals - derived from main database
- * Latest products added to the catalog
- */
-export const newArrivals = [
-  PRODUCTS_DB['prod-010'], // Limited Edition Jersey
-  PRODUCTS_DB['prod-011'], // Techwear Jacket
-  PRODUCTS_DB['prod-012'], // Vintage Denim
-  PRODUCTS_DB['prod-013'], // Cyber Backpack
-].filter(Boolean);
+export const featuredProducts: Product[] = [
+  productById('prod-006'),
+  productById('prod-007'),
+  productById('prod-008'),
+  productById('prod-009'),
+].filter((product): product is Product => Boolean(product));
 
-/**
- * Testimonials for UI display
- */
+export const newArrivals: Product[] = [
+  productById('prod-010'),
+  productById('prod-011'),
+  productById('prod-012'),
+  productById('prod-013'),
+].filter((product): product is Product => Boolean(product));
+
 export const testimonials: Testimonial[] = [
   {
     id: '1',
@@ -95,26 +77,3 @@ export const testimonials: Testimonial[] = [
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
   },
 ];
-
-/**
- * Helper function to get products by category
- */
-export function getProductsByCategory(category: string) {
-  return Object.values(PRODUCTS_DB).filter((product) => product.category === category);
-}
-
-/**
- * Helper function to get products with specific badge
- */
-export function getProductsByBadge(badge: string) {
-  return Object.values(PRODUCTS_DB).filter((product) => product.badge === badge);
-}
-
-/**
- * Helper function to get products on sale
- */
-export function getSaleProducts() {
-  return Object.values(PRODUCTS_DB).filter(
-    (product) => product.originalPrice && product.originalPrice > product.price,
-  );
-}

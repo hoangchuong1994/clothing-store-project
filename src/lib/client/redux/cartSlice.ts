@@ -11,7 +11,7 @@
 
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
-import { CartItem, CartTotals } from '@/lib/types/cart';
+import { CartItem, CartTotals } from '@/features/cart/types';
 
 /**
  * Cart state structure

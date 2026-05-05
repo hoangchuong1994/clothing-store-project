@@ -19,7 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { useCart } from '@/hooks/cart';
+import { useCart } from '@/features/cart/hooks';
 import { CartItem as CartItemComponent } from './CartItem';
 import { CartSummary } from './CartSummary';
 import { EmptyCart } from './EmptyCart';

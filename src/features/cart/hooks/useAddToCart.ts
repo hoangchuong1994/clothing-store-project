@@ -15,7 +15,7 @@ import {
   addToCartError,
 } from '@/lib/client/redux/cartSlice';
 import { addToCart as addToCartAction } from '@/lib/server/actions/cart';
-import { CartItem, AddToCartPayload } from '@/lib/types/cart';
+import { CartItem, AddToCartPayload } from '@/features/cart/types';
 
 interface UseAddToCartOptions {
   onSuccess?: (item: CartItem) => void;

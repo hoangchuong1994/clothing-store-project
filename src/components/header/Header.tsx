@@ -11,9 +11,9 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { ModeToggle } from '@/components/ModeToggle';
 import { Link } from '@/i18n/navigation';
-import { CartDrawer } from '@/components/cart';
-import { useCartDrawer } from '@/hooks/cart/useCartDrawer';
-import { useCart } from '@/hooks/cart/useCart';
+import { CartDrawer } from '@/features/cart/components';
+import { useCartDrawer } from '@/features/cart/hooks/useCartDrawer';
+import { useCart } from '@/features/cart/hooks/useCart';
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -45,12 +45,14 @@ export function Header({ isLoggedIn = false, onLogout }: HeaderProps) {
     >
       <div className="flex h-16 items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className="group relative shrink-0">
-          <h1 className="text-foreground text-base font-black tracking-widest uppercase sm:text-lg">
-            {t('brand')}
-          </h1>
-          <span className="absolute right-0 -bottom-1 left-0 h-1 rounded-full bg-linear-to-r from-cyan-500 via-blue-500 to-cyan-500" />
-        </div>
+        <Link href="/" className="font-heading text-lg font-bold tracking-[0.15em] uppercase">
+          <div className="group relative shrink-0">
+            <h1 className="text-foreground text-base font-black tracking-widest uppercase sm:text-lg">
+              {t('brand')}
+            </h1>
+            <span className="absolute right-0 -bottom-1 left-0 h-1 rounded-full bg-linear-to-r from-cyan-500 via-blue-500 to-cyan-500" />
+          </div>
+        </Link>
 
         {/* Center Navigation */}
         <NavMenu />

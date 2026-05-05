@@ -13,7 +13,7 @@
 
 'use server';
 
-import { CartActionResponse, CartItem, Cart } from '@/lib/types/cart';
+import { CartActionResponse, CartItem, Cart } from '@/features/cart/types';
 import {
   AddToCartSchema,
   UpdateCartItemSchema,
@@ -301,7 +301,7 @@ export async function removeCartItem(input: unknown): Promise<CartActionResponse
  */
 export async function clearCart(input: unknown): Promise<CartActionResponse<boolean>> {
   try {
-    const validatedInput = ClearCartSchema.parse(input);
+    ClearCartSchema.parse(input);
 
     const session = await getCurrentUserSession();
 

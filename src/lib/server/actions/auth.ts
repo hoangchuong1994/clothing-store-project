@@ -5,7 +5,7 @@
  * For this demo: returns mock user session based on headers/cookies
  */
 
-import { UserSession } from '@/lib/types/cart';
+import { UserSession } from '@/features/cart/types';
 
 /**
  * Get current user session

@@ -16,6 +16,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       errors: (await import(`../../messages/${locale}/errors.json`)).default,
       notFound: (await import(`../../messages/${locale}/notFound.json`)).default,
       auth: (await import(`../../messages/${locale}/auth.json`)).default,
+      products: (await import(`../../messages/${locale}/products.json`)).default,
     },
   };
 });

@@ -8,7 +8,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '@/lib/client/redux/store';
-import { useCartPersistence } from '@/hooks/cart';
+import { useCartPersistence } from '@/features/cart/hooks';
 
 interface ReduxProviderProps {
   children: React.ReactNode;

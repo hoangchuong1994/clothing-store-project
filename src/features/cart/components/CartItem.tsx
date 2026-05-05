@@ -9,8 +9,8 @@ import { Minus, Plus, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useUpdateCartItem, useRemoveCartItem } from '@/hooks/cart';
-import type { CartItem } from '@/lib/types/cart';
+import { useUpdateCartItem, useRemoveCartItem } from '@/features/cart/hooks';
+import type { CartItem, CartItemVariant } from '@/features/cart/types';
 
 interface CartItemProps {
   item: CartItem;
@@ -69,7 +69,7 @@ export function CartItem({ item }: CartItemProps) {
         {/* Variants */}
         {item.variants && item.variants.length > 0 && (
           <div className="flex flex-wrap gap-1">
-            {item.variants.map((variant) => (
+            {item.variants.map((variant: CartItemVariant) => (
               <Badge key={variant.id} variant="secondary" className="text-xs">
                 {variant.name}: {variant.value}
               </Badge>

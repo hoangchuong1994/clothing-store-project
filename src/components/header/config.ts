@@ -5,12 +5,11 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { id: 'men', labelKey: 'nav.men', href: '/men' },
-  { id: 'women', labelKey: 'nav.women', href: '/women' },
-  { id: 'new', labelKey: 'nav.new', href: '/new' },
-  { id: 'drops', labelKey: 'nav.drops', href: '/drops' },
-  { id: 'sale', labelKey: 'nav.sale', href: '/sale' },
-  { id: 'products', labelKey: 'nav.products', href: '/products' },
+  { id: 'men', labelKey: 'nav.men', href: '/products?gender=men' },
+  { id: 'women', labelKey: 'nav.women', href: '/products?gender=women' },
+  { id: 'new', labelKey: 'nav.new', href: '/products?badge=NEW' },
+  { id: 'unisex', labelKey: 'nav.unisex', href: '/products?gender=unisex' },
+  { id: 'sale', labelKey: 'nav.sale', href: '/products?badge=SALE' },
 ];
 
 export type UserMenuOption = {

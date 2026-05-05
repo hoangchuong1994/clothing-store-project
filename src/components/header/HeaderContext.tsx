@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, ReactNode } from 'react';
-import { useHeaderState, CartState, AuthState } from '@/hooks/useHeaderState';
+import { useHeaderState, CartState, AuthState } from '@/features/user/hooks/useHeaderState';
 
 interface HeaderContextType {
   cart: CartState;

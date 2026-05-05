@@ -9,8 +9,8 @@
 import React, { useState, useCallback } from 'react';
 import { ShoppingCart, Loader2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAddToCart } from '@/hooks/cart';
-import { AddToCartPayload, CartItemVariant } from '@/lib/types/cart';
+import { useAddToCart } from '@/features/cart/hooks';
+import { AddToCartPayload, CartItemVariant } from '@/features/cart/types';
 import { Badge } from '@/components/ui/badge';
 
 interface AddToCartButtonProps {

@@ -5,8 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { LoginForm } from '@/components/auth/LoginForm';
-import { RegisterForm } from '@/components/auth/RegisterForm';
+import { LoginForm } from '@/features/auth/components/LoginForm';
+import { RegisterForm } from '@/features/auth/components/RegisterForm';
 import { Sparkles, ShieldCheck, Moon, Sun } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 

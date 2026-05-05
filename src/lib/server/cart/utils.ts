@@ -3,7 +3,7 @@
  * Business logic for cart operations (merging, validation, etc.)
  */
 
-import { Cart, CartItem } from '@/lib/types/cart';
+import { Cart, CartItem } from '@/features/cart/types';
 import { v4 as uuidv4 } from 'uuid';
 
 /**

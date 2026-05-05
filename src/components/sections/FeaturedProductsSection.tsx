@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { featuredProducts } from '@/lib/data/ui';
-import { ProductCard } from '@/components/ProductCard';
+import { featuredProducts } from '@/features/products/data/ui';
+import { ProductCard } from '@/features/products/components/ProductCard';
 import { Flame } from '@/components/ui/icon';
 import { useTranslations } from 'next-intl';
 

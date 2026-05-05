@@ -4,7 +4,7 @@
  * In production, this would be real Prisma queries
  */
 
-import { Cart } from '@/lib/types/cart';
+import { Cart } from '@/features/cart/types';
 
 /**
  * Simulated user cart database
@@ -34,7 +34,12 @@ const USER_CARTS_DB: Record<string, Cart> = {
 };
 
 // Re-export product functions for backward compatibility
-export { getProduct, getProducts, checkStock, getAllProducts } from '@/lib/db/products';
+export {
+  getProductById as getProduct,
+  getProducts,
+  checkStock,
+  getAllProducts,
+} from '@/features/products/server/data';
 
 /**
  * Get user cart from simulated DB

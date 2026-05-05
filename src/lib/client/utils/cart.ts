@@ -5,7 +5,7 @@
 
 'use client';
 
-import { CartItem, Cart } from '@/lib/types/cart';
+import { CartItem, Cart } from '@/features/cart/types';
 
 const STORAGE_KEY = 'clothing-store-cart';
 const STORAGE_TIMESTAMP_KEY = 'clothing-store-cart-timestamp';
@@ -200,7 +200,10 @@ export function itemsToCart(items: CartItem[]): Cart {
  * Debounce function for quantity updates
  * Prevents rapid API calls during quantity changes
  */
-export function createDebounce<T extends (...args: unknown[]) => unknown>(fn: T, delayMs: number = 500) {
+export function createDebounce<T extends (...args: unknown[]) => unknown>(
+  fn: T,
+  delayMs: number = 500,
+) {
   let timeoutId: NodeJS.Timeout | null = null;
 
   return function debounced(...args: Parameters<T>) {
