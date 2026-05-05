@@ -4,8 +4,8 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 // Custom icons (SVG)
-export { GithubIcon } from '@/components/icons/GithubIcon';
-export { GoogleIcon } from '@/components/icons/GoogleIcon';
+export { GithubIcon } from '../../../public/icons/GithubIcon';
+export { GoogleIcon } from '../../../public/icons/GoogleIcon';
 
 // Lucide React icons - re-export for convenience
 export {

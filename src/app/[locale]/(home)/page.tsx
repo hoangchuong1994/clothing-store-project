@@ -1,11 +1,10 @@
-﻿import { HeroSection } from '@/components/sections/HeroSection';
-import { CategoriesSection } from '@/components/sections/CategoriesSection';
-import { FeaturedProductsSection } from '@/components/sections/FeaturedProductsSection';
-import { NewArrivalsSection } from '@/components/sections/NewArrivalsSection';
-import { PromotionBanner } from '@/components/sections/PromotionBanner';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { NewsletterSection } from '@/components/sections/NewsletterSection';
-import { Footer } from '@/components/sections/Footer';
+﻿import { HeroSection } from '@/features/home/sections/HeroSection';
+import { CategoriesSection } from '@/features/home/sections/CategoriesSection';
+import { FeaturedProductsSection } from '@/features/home/sections/FeaturedProductsSection';
+import { NewArrivalsSection } from '@/features/home/sections/NewArrivalsSection';
+import { PromotionBanner } from '@/features/home/sections/PromotionBanner';
+import { TestimonialsSection } from '@/features/home/sections/TestimonialsSection';
+import { NewsletterSection } from '@/features/home/sections/NewsletterSection';
 
 export const metadata = {
   title: 'Cyber Brand - Premium Streetwear x Cyber Fashion',
@@ -54,7 +53,6 @@ export default function LocalePage() {
       <NewsletterSection />
 
       {/* Footer */}
-      <Footer />
     </>
   );
 }

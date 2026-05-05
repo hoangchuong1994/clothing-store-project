@@ -8,8 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from './PasswordInput';
 import { SocialButtons } from './SocialButtons';
-import { getPasswordStrength, strengthLevels } from './auth-utils';
-import { registerSchema, type RegisterSchema } from './auth-schemas';
+import { getPasswordStrength, strengthLevels } from '../lib/auth-utils';
+import { registerSchema, type RegisterSchema } from '../schemas/auth-schemas';
 
 interface RegisterFormProps {
   onSubmit: (values: RegisterSchema) => Promise<void>;
