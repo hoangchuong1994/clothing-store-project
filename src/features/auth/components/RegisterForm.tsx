@@ -2,7 +2,6 @@
 
 import { useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -39,14 +38,7 @@ export function RegisterForm() {
   const passwordStrength = usePasswordStrength(passwordValue);
 
   return (
-    <motion.form
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      noValidate
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Error Alert */}
       {error && <AuthErrorAlert error={error} onDismiss={clearError} />}
 
@@ -69,14 +61,9 @@ export function RegisterForm() {
             disabled={isLoading}
           />
           {formState.errors.name?.message && (
-            <motion.p
-              id="register-name-error"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-2 text-sm text-rose-500"
-            >
+            <p id="register-name-error" className="mt-2 text-sm text-rose-500">
               {t(formState.errors.name.message as string)}
-            </motion.p>
+            </p>
           )}
         </div>
 
@@ -95,14 +82,9 @@ export function RegisterForm() {
             disabled={isLoading}
           />
           {formState.errors.email?.message && (
-            <motion.p
-              id="register-email-error"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-2 text-sm text-rose-500"
-            >
+            <p id="register-email-error" className="mt-2 text-sm text-rose-500">
               {t(formState.errors.email.message as string)}
-            </motion.p>
+            </p>
           )}
         </div>
 
@@ -175,6 +157,6 @@ export function RegisterForm() {
         onGitHub={() => handleSocialAuth('github')}
         disabled={isLoading}
       />
-    </motion.form>
+    </form>
   );
 }

@@ -5,7 +5,7 @@ import GitHub from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/server/prisma/prisma';
-import { ROLE_SCOPES } from './roles';
+import { ROLE_SCOPES } from '../config/roles';
 
 const authProviders = [
   ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET

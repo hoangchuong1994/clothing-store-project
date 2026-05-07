@@ -56,7 +56,7 @@ export function LoginForm() {
   } = useLogin();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full space-y-5">
       {/* Error Alert */}
       {error && <AuthErrorAlert error={error} onDismiss={clearError} />}
 
