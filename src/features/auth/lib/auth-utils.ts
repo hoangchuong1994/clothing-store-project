@@ -7,11 +7,11 @@ export const strengthLevels = [
 
 export function getPasswordStrength(password: string) {
   const score = [
-    password.length >= 8,
+    password.length >= 6,
     password.length >= 12,
     /[A-Z]/.test(password),
-    /[0-9]/.test(password),
-    /[^A-Za-z0-9]/.test(password),
+    /[0-7]/.test(password),
+    /[^A-Za-z0-7]/.test(password),
   ].filter(Boolean).length;
 
   return Math.min(Math.max(score - 1, 0), strengthLevels.length - 1);

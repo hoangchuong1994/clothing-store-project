@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { PasswordInput } from './PasswordInput';
 import { SocialButtons } from './SocialButtons';
 import { getPasswordStrength, strengthLevels } from '../lib/auth-utils';
-import { registerSchema, type RegisterSchema } from '../schemas/auth-schemas';
+import { RegisterSchema } from '../schemas/auth-schemas';
 
 interface RegisterFormProps {
   onSubmit: (values: RegisterSchema) => Promise<void>;
@@ -26,7 +26,7 @@ export function RegisterForm({ onSubmit, onSocialAuth }: RegisterFormProps) {
     formState: { errors, isSubmitting, isValid },
   } = useForm<RegisterSchema>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(registerSchema as any),
+    resolver: zodResolver(RegisterSchema as any),
     mode: 'onChange',
     defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
   });

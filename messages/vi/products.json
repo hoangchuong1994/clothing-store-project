@@ -1,4 +1,9 @@
 {
+  "hero": {
+    "badge": "Sản phẩm",
+    "heading": "Mua sắm bộ sưu tập mới nhất",
+    "description": "Duyệt kho hàng với bộ lọc kiểu an toàn, trạng thái URL đồng bộ và dữ liệu sản phẩm chạy trên server."
+  },
   "filters": {
     "title": "Bộ lọc",
     "heading": "Tinh chỉnh tìm kiếm",

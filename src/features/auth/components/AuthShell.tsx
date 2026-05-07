@@ -83,9 +83,6 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
       : t('theme.darkMode')
     : t('theme.darkMode');
   const pageHeading = activeTab === 'login' ? t('form.loginHeading') : t('form.registerHeading');
-  // const accountPrompt = activeTab === 'login' ? t('footer.newHere') : t('footer.haveAccount');
-  // const accountAction = activeTab === 'login' ? t('footer.createAccount') : t('footer.signIn');
-  // const accountHref = activeTab === 'login' ? '/signup' : '/signin';
 
   const handleAuthSuccess = (action: 'login' | 'register') => {
     setToast({
@@ -215,14 +212,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
                   transition={transition}
                   className="space-y-6"
                 >
-                  <LoginForm
-                    onSubmit={async (values) => {
-                      await new Promise((resolve) => setTimeout(resolve, 650));
-                      handleAuthSuccess('login');
-                      console.log('Login', values);
-                    }}
-                    onSocialAuth={handleSocialAuth}
-                  />
+                  <LoginForm />
                 </motion.div>
               ) : (
                 <motion.div

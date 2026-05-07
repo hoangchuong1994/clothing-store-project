@@ -1,4 +1,9 @@
 {
+  "hero": {
+    "badge": "Products",
+    "heading": "Shop the latest drops",
+    "description": "Browse inventory with type-safe filters, synced URL state, and server-driven product data."
+  },
   "filters": {
     "title": "Filters",
     "heading": "Refine your search",
