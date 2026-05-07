@@ -144,7 +144,7 @@ export function RegisterForm() {
       <Button
         type="submit"
         disabled={!formState.isValid || isLoading}
-        className="w-full rounded-3xl px-5 py-3 text-base font-semibold tracking-tight transition-all duration-200"
+        className="w-full rounded-3xl bg-linear-to-r from-violet-500 via-fuchsia-500 to-indigo-500 px-5 py-6 text-base font-semibold tracking-tight text-white shadow-[0_20px_60px_rgba(99,102,241,0.22)] transition-all duration-200 hover:shadow-[0_24px_72px_rgba(99,102,241,0.28)]"
         aria-busy={isLoading}
       >
         {isLoading ? (
