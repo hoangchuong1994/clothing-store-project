@@ -95,7 +95,7 @@ export function FilterPanel({ availableFilters, currentFilters }: FilterPanelPro
   }, [setFilters]);
 
   return (
-    <div className="space-y-4">
+    <>
       <FilterPanelMobile
         availableFilters={availableFilters}
         draftFilters={draftFilters}
@@ -119,6 +119,6 @@ export function FilterPanel({ availableFilters, currentFilters }: FilterPanelPro
         onClear={handleClearFilters}
         activeFiltersCount={activeFiltersCount}
       />
-    </div>
+    </>
   );
 }
