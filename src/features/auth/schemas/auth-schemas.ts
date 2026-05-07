@@ -11,12 +11,12 @@ export const LoginSchema = z.object({
 
 export const RegisterSchema = LoginSchema.extend({
   name: z.string().min(2, { message: 'validation.nameRequired' }),
-  confirmPassword: z.string().min(1, { message: 'validation.confirmPassword' }),
+  passwordConfirm: z.string().min(1, { message: 'validation.confirmPassword' }),
 }).superRefine((data, ctx) => {
-  if (data.password !== data.confirmPassword) {
+  if (data.password !== data.passwordConfirm) {
     ctx.addIssue({
       code: 'custom',
-      path: ['confirmPassword'],
+      path: ['passwordConfirm'],
       message: 'validation.passwordMismatch',
     });
   }

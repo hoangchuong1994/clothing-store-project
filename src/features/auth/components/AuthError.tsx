@@ -25,8 +25,16 @@ export function AuthErrorDisplay({ error, onDismiss, className = '' }: AuthError
 
   if (!error) return null;
 
-  // Get the error message - could be a translation key or raw text
-  const displayMessage = error.isTranslated === false ? t(error.message) : error.message;
+  // Get the error message - could be a translation key or raw text.
+  // If the translation key is missing, fall back to raw message text.
+  let displayMessage = error.message;
+  if (error.isTranslated === false) {
+    try {
+      displayMessage = t(error.message);
+    } catch {
+      displayMessage = error.message;
+    }
+  }
 
   return (
     <div
@@ -81,7 +89,14 @@ export function AuthErrorAlert({ error, onDismiss }: Omit<AuthErrorProps, 'class
 
   if (!error) return null;
 
-  const displayMessage = error.isTranslated === false ? t(error.message) : error.message;
+  let displayMessage = error.message;
+  if (error.isTranslated === false) {
+    try {
+      displayMessage = t(error.message);
+    } catch {
+      displayMessage = error.message;
+    }
+  }
 
   return (
     <div

@@ -3,7 +3,7 @@
  * Centralized type definitions for the auth feature
  */
 
-import { type UseFormRegister } from 'react-hook-form';
+import { type UseFormRegister, type Control } from 'react-hook-form';
 import { type LoginSchema, type RegisterSchema } from '../schemas/auth-schemas';
 import { type UserRole } from '@/generated/prisma/enums';
 
@@ -120,6 +120,34 @@ export interface UseLoginReturn {
 
   // Methods
   onSubmit: (values: LoginFormValues) => Promise<void>;
+  onSocialAuth: (provider: SocialProvider) => Promise<void>;
+  clearError: () => void;
+  getErrorMessage: (authError: AuthError | null) => string;
+}
+
+/**
+ * Register hook return type
+ */
+export interface UseRegisterReturn {
+  // Form methods
+  register: UseFormRegister<RegisterFormValues>; // react-hook-form register
+  handleSubmit: (
+    onSubmit: (data: RegisterFormValues) => Promise<void>,
+  ) => (e?: React.FormEvent) => Promise<void>; // react-hook-form handleSubmit
+  control: Control<RegisterFormValues>; // react-hook-form control
+  formState: {
+    errors: Record<string, { message?: string }>;
+    isValid: boolean;
+    isDirty: boolean;
+  };
+
+  // State
+  isLoading: boolean;
+  error: AuthError | null;
+  success: boolean;
+
+  // Methods
+  onSubmit: (values: RegisterFormValues) => Promise<void>;
   onSocialAuth: (provider: SocialProvider) => Promise<void>;
   clearError: () => void;
   getErrorMessage: (authError: AuthError | null) => string;

@@ -1,44 +1,60 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useWatch } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import { useForm, useWatch } from 'react-hook-form';
+import { motion } from 'framer-motion';
+import { ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordInput } from './PasswordInput';
+import { PasswordStrength } from './PasswordStrength';
 import { SocialButtons } from './SocialButtons';
-import { getPasswordStrength, strengthLevels } from '../lib/auth-utils';
-import { RegisterSchema } from '../schemas/auth-schemas';
+import { AuthErrorAlert } from './AuthError';
+import { AuthSuccessAlert } from './AuthSuccess';
+import { useRegister } from '../hooks/useRegister';
+import { usePasswordStrength } from '../hooks/usePasswordStrength';
 
-interface RegisterFormProps {
-  onSubmit: (values: RegisterSchema) => Promise<void>;
-  onSocialAuth: (provider: 'google' | 'github') => void;
-}
-
-export function RegisterForm({ onSubmit, onSocialAuth }: RegisterFormProps) {
+/**
+ * Pure presentation component for user registration
+ * Handles form rendering and user interactions only
+ * All business logic is delegated to useRegister hook
+ */
+export function RegisterForm() {
   const t = useTranslations('auth');
-
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting, isValid },
-  } = useForm<RegisterSchema>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(RegisterSchema as any),
-    mode: 'onChange',
-    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
-  });
+    formState,
+    isLoading,
+    error,
+    success,
+    onSubmit,
+    onSocialAuth: handleSocialAuth,
+    clearError,
+  } = useRegister();
 
   const passwordValue = useWatch({ control, name: 'password', defaultValue: '' });
-  const strengthScore = getPasswordStrength(passwordValue ?? '');
-  const strength = strengthLevels[strengthScore];
-  const strengthProgress = `${(strengthScore / (strengthLevels.length - 1)) * 100}%`;
+  const passwordStrength = usePasswordStrength(passwordValue);
 
   return (
-    <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6"
+    >
+      {/* Error Alert */}
+      {error && <AuthErrorAlert error={error} onDismiss={clearError} />}
+
+      {/* Success Alert */}
+      {success && <AuthSuccessAlert message={t('signup.successMessage')} />}
+
       <div className="grid gap-4">
+        {/* Name Field */}
         <div>
           <Label htmlFor="register-name">{t('signup.name')}</Label>
           <Input
@@ -47,17 +63,24 @@ export function RegisterForm({ onSubmit, onSocialAuth }: RegisterFormProps) {
             autoComplete="name"
             placeholder={t('form.placeholderName')}
             {...register('name')}
-            aria-invalid={Boolean(errors.name)}
-            aria-describedby={errors.name ? 'register-name-error' : undefined}
-            className="mt-2"
+            aria-invalid={Boolean(formState.errors.name)}
+            aria-describedby={formState.errors.name ? 'register-name-error' : undefined}
+            className="mt-2 border border-slate-300 dark:border-slate-700"
+            disabled={isLoading}
           />
-          {errors.name?.message && (
-            <p id="register-name-error" className="mt-2 text-sm text-rose-500">
-              {t(errors.name.message as string)}
-            </p>
+          {formState.errors.name?.message && (
+            <motion.p
+              id="register-name-error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-2 text-sm text-rose-500"
+            >
+              {t(formState.errors.name.message as string)}
+            </motion.p>
           )}
         </div>
 
+        {/* Email Field */}
         <div>
           <Label htmlFor="register-email">{t('signup.email')}</Label>
           <Input
@@ -66,17 +89,24 @@ export function RegisterForm({ onSubmit, onSocialAuth }: RegisterFormProps) {
             autoComplete="email"
             placeholder={t('form.placeholderEmail')}
             {...register('email')}
-            aria-invalid={Boolean(errors.email)}
-            aria-describedby={errors.email ? 'register-email-error' : undefined}
-            className="mt-2"
+            aria-invalid={Boolean(formState.errors.email)}
+            aria-describedby={formState.errors.email ? 'register-email-error' : undefined}
+            className="mt-2 border border-slate-300 dark:border-slate-700"
+            disabled={isLoading}
           />
-          {errors.email?.message && (
-            <p id="register-email-error" className="mt-2 text-sm text-rose-500">
-              {t(errors.email.message as string)}
-            </p>
+          {formState.errors.email?.message && (
+            <motion.p
+              id="register-email-error"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-2 text-sm text-rose-500"
+            >
+              {t(formState.errors.email.message as string)}
+            </motion.p>
           )}
         </div>
 
+        {/* Password Field with Strength Indicator */}
         <div>
           <PasswordInput
             id="register-password"
@@ -84,54 +114,67 @@ export function RegisterForm({ onSubmit, onSocialAuth }: RegisterFormProps) {
             placeholder={t('form.placeholderPasswordCreate')}
             autoComplete="new-password"
             register={register('password')}
-            error={errors.password ? t(errors.password.message as string) : undefined}
+            error={
+              formState.errors.password ? t(formState.errors.password.message as string) : undefined
+            }
+            disabled={isLoading}
+            className="border border-slate-300 dark:border-slate-700"
           />
-          <div className="mt-3 rounded-3xl border border-slate-200 bg-white/80 p-3 text-sm dark:border-slate-800 dark:bg-slate-950/80">
-            <div className="flex items-center justify-between gap-4 text-slate-600 dark:text-slate-300">
-              <span>{t('form.passwordStrength')}</span>
-              <span className="font-semibold text-slate-900 dark:text-slate-100">
-                {t(strength.labelKey)}
-              </span>
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-              <div
-                className={`${strength.color} h-full rounded-full transition-all duration-300`}
-                style={{ width: strengthProgress }}
-              />
-            </div>
-          </div>
+          {passwordValue && <PasswordStrength strength={passwordStrength} />}
         </div>
 
+        {/* Confirm Password Field */}
         <PasswordInput
           id="register-confirm-password"
           label={t('signup.confirmPassword')}
           placeholder={t('form.placeholderPasswordRepeat')}
           autoComplete="new-password"
-          register={register('confirmPassword')}
-          error={errors.confirmPassword ? t(errors.confirmPassword.message as string) : undefined}
+          register={register('passwordConfirm')}
+          error={
+            formState.errors.passwordConfirm
+              ? t(formState.errors.passwordConfirm.message as string)
+              : undefined
+          }
+          disabled={isLoading}
+          className="border border-slate-300 dark:border-slate-700"
         />
       </div>
 
-      <div className="space-y-4">
-        <Button
-          type="submit"
-          disabled={!isValid || isSubmitting}
-          className="w-full rounded-3xl px-5 py-3 text-base font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-        >
-          {isSubmitting ? t('form.creatingAccount') : t('signup.button')}
-        </Button>
+      {/* Submit Button */}
+      <Button
+        type="submit"
+        disabled={!formState.isValid || isLoading}
+        className="w-full rounded-3xl px-5 py-3 text-base font-semibold tracking-tight transition-all duration-200"
+        aria-busy={isLoading}
+      >
+        {isLoading ? (
+          <div className="flex items-center justify-center">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+            <span>{t('form.creatingAccount')}</span>
+          </div>
+        ) : (
+          <>
+            <span>{t('signup.button')}</span>
+            <ArrowRight className="ml-auto h-5 w-5" aria-hidden="true" />
+          </>
+        )}
+      </Button>
 
-        <div className="flex items-center justify-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+      {/* Divider */}
+      <div className="relative flex items-center gap-3">
+        <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
+        <span className="text-xs text-slate-500 dark:text-slate-400">
           {t('form.orContinueWith')}
-          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-        </div>
-
-        <SocialButtons
-          onGoogle={() => onSocialAuth('google')}
-          onGitHub={() => onSocialAuth('github')}
-        />
+        </span>
+        <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
       </div>
-    </form>
+
+      {/* Social Buttons */}
+      <SocialButtons
+        onGoogle={() => handleSocialAuth('google')}
+        onGitHub={() => handleSocialAuth('github')}
+        disabled={isLoading}
+      />
+    </motion.form>
   );
 }

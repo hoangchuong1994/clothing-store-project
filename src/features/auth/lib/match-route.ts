@@ -64,7 +64,7 @@ export function matchRoute(
   mode: MatchMode = 'prefix',
 ) {
   const internalPath = resolveInternalPath(pathname);
-  console.log('Matching path:', { pathname, internalPath, mode });
+
   return routes.some((route) => {
     if (mode === 'exact') {
       return internalPath === route;

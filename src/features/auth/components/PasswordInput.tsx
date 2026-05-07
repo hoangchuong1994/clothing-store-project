@@ -13,6 +13,7 @@ interface PasswordInputProps extends React.ComponentPropsWithoutRef<'input'> {
   register: UseFormRegisterReturn;
   error?: string;
   hint?: string;
+  disabled?: boolean;
 }
 
 export function PasswordInput({

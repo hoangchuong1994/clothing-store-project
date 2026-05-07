@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { LoginForm } from '@/features/auth/components/LoginForm';
 import { RegisterForm } from '@/features/auth/components/RegisterForm';
+import { ToastBanner, type ToastState } from '@/features/auth/components/ToastBanner';
 import { Sparkles, ShieldCheck, Moon, Sun } from '@/components/ui/icon';
 import { cn } from '@/lib/utils';
 
@@ -14,13 +15,6 @@ type AuthTab = 'login' | 'register';
 
 interface AuthShellProps {
   defaultTab?: AuthTab;
-}
-
-type ToastVariant = 'success' | 'info' | 'error';
-
-interface ToastState {
-  message: string;
-  variant: ToastVariant;
 }
 
 const transition = { duration: 0.28, ease: 'easeOut' as const };
@@ -33,37 +27,9 @@ function useIsClient() {
   );
 }
 
-function ToastBanner({ message, variant, onClose }: ToastState & { onClose: () => void }) {
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className={cn(
-        'fixed top-6 left-1/2 z-50 w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 rounded-3xl border px-5 py-4 text-sm shadow-xl shadow-slate-950/10',
-        variant === 'success' && 'border-emerald-200 bg-emerald-50 text-emerald-950',
-        variant === 'info' && 'border-slate-200 bg-slate-50 text-slate-950',
-        variant === 'error' && 'border-rose-200 bg-rose-50 text-rose-950',
-      )}
-    >
-      <div className="flex items-center justify-between gap-4">
-        <p>{message}</p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-full p-2 text-slate-500 transition hover:bg-slate-200 hover:text-slate-900"
-          aria-label="Dismiss notification"
-        >
-          ×
-        </button>
-      </div>
-    </div>
-  );
-}
-
 export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
   const t = useTranslations('auth');
   const [activeTab, setActiveTab] = React.useState<AuthTab>(defaultTab);
-
   const [toast, setToast] = React.useState<ToastState | null>(null);
   const { theme, resolvedTheme, setTheme } = useTheme();
 
@@ -83,20 +49,6 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
       : t('theme.darkMode')
     : t('theme.darkMode');
   const pageHeading = activeTab === 'login' ? t('form.loginHeading') : t('form.registerHeading');
-
-  const handleAuthSuccess = (action: 'login' | 'register') => {
-    setToast({
-      message: action === 'login' ? 'Signed in successfully.' : 'Account created successfully.',
-      variant: 'success',
-    });
-  };
-
-  const handleSocialAuth = (provider: 'google' | 'github') => {
-    setToast({
-      message: `${provider === 'google' ? 'Google' : 'GitHub'} sign-in is not configured yet.`,
-      variant: 'info',
-    });
-  };
 
   return (
     <div className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
@@ -223,14 +175,7 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
                   transition={transition}
                   className="space-y-6"
                 >
-                  <RegisterForm
-                    onSubmit={async (values) => {
-                      await new Promise((resolve) => setTimeout(resolve, 650));
-                      handleAuthSuccess('register');
-                      console.log('Register', values);
-                    }}
-                    onSocialAuth={handleSocialAuth}
-                  />
+                  <RegisterForm />
                 </motion.div>
               )}
             </AnimatePresence>

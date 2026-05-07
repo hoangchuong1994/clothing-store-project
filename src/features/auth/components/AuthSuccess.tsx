@@ -24,8 +24,16 @@ export function AuthSuccessDisplay({ message, onDismiss, className = '' }: AuthS
 
   if (!message) return null;
 
-  // If message contains space, treat as literal; otherwise as translation key
-  const displayMessage = message.includes(' ') ? message : t(message);
+  // If message contains space, treat as literal; otherwise as translation key.
+  // If the translation is missing, fall back to the raw value.
+  let displayMessage = message;
+  if (!message.includes(' ')) {
+    try {
+      displayMessage = t(message);
+    } catch {
+      displayMessage = message;
+    }
+  }
 
   return (
     <div

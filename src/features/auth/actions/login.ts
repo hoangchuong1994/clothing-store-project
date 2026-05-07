@@ -1,12 +1,6 @@
 'use server';
 
-/**
- * Login server action
- * Handles credential-based authentication with proper error handling
- */
-
 import bcrypt from 'bcryptjs';
-import type { z } from 'zod';
 import { LoginSchema } from '../schemas/auth-schemas';
 import type { AuthResponse } from '../types/auth.types';
 import { AuthErrorHandler } from '../lib/auth-errors';
@@ -14,14 +8,8 @@ import { AUTH_ERROR_CODES } from '../types/auth.types';
 import { getRedirectUrlForRole } from '../lib/callback-url';
 import prisma from '@/lib/server/prisma/prisma';
 
-/**
- * Authenticate user with email and password
- *
- * @param credentials - Login form values
- * @returns Authentication result with success/error status
- */
 export async function loginWithCredentials(
-  credentials: z.infer<typeof LoginSchema>,
+  credentials: LoginSchema,
 ): Promise<AuthResponse<{ redirectUrl?: string }>> {
   try {
     // Validate input
