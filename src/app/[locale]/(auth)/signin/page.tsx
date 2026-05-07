@@ -1,7 +1,5 @@
-'use client';
-
-import { AuthShell } from '@/features/auth/components/AuthShell';
+import { LoginForm } from '@/features/auth/components/LoginForm';
 
 export default function SignInPage() {
-  return <AuthShell defaultTab="login" />;
+  return <LoginForm />;
 }

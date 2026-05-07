@@ -1,7 +1,5 @@
-'use client';
-
-import { AuthShell } from '@/features/auth/components/AuthShell';
+import { RegisterForm } from '@/features/auth/components/RegisterForm';
 
 export default function SignUpPage() {
-  return <AuthShell defaultTab="register" />;
+  return <RegisterForm />;
 }

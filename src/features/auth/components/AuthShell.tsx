@@ -1,62 +1,28 @@
 ﻿'use client';
-import { useSyncExternalStore } from 'react';
 import * as React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
-import { LoginForm } from '@/features/auth/components/LoginForm';
-import { RegisterForm } from '@/features/auth/components/RegisterForm';
-import { ToastBanner, type ToastState } from '@/features/auth/components/ToastBanner';
-import { Sparkles, ShieldCheck, Moon, Sun } from '@/components/ui/icon';
-import { cn } from '@/lib/utils';
-
-type AuthTab = 'login' | 'register';
+import { usePathname } from '@/i18n/navigation';
+import { AuthTabs, getActiveAuthTab } from '@/features/auth/components/AuthTabs';
+import { Sparkles, ShieldCheck } from '@/components/ui/icon';
 
 interface AuthShellProps {
-  defaultTab?: AuthTab;
+  children: React.ReactNode;
 }
 
-const transition = { duration: 0.28, ease: 'easeOut' as const };
-
-function useIsClient() {
-  return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
-}
-
-export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
+export function AuthShell({ children }: AuthShellProps) {
   const t = useTranslations('auth');
-  const [activeTab, setActiveTab] = React.useState<AuthTab>(defaultTab);
-  const [toast, setToast] = React.useState<ToastState | null>(null);
-  const { theme, resolvedTheme, setTheme } = useTheme();
+  const pathname = usePathname();
+  const activeTab = getActiveAuthTab(pathname);
 
-  React.useEffect(() => {
-    if (!toast) return;
-
-    const timer = window.setTimeout(() => setToast(null), 3600);
-    return () => window.clearTimeout(timer);
-  }, [toast]);
-
-  const mounted = useIsClient();
-
-  const isDarkMode = mounted ? theme === 'dark' || resolvedTheme === 'dark' : false;
-  const themeLabel = mounted
-    ? isDarkMode
-      ? t('theme.lightMode')
-      : t('theme.darkMode')
-    : t('theme.darkMode');
   const pageHeading = activeTab === 'login' ? t('form.loginHeading') : t('form.registerHeading');
 
   return (
-    <div className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
-      {toast && <ToastBanner {...toast} onClose={() => setToast(null)} />}
+    <main className="relative flex min-h-screen items-center overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.16),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_18%)] p-4 text-slate-950 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={transition}
+        transition={{ duration: 0.28, ease: 'easeOut' as const }}
         className="relative mx-auto grid max-w-6xl gap-8 overflow-hidden rounded-[2rem] border border-slate-900/5 bg-white/80 shadow-[0_40px_120px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:gap-6 md:grid-cols-[1.15fr_1fr] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-none"
       >
         <div className="order-last rounded-[2rem] bg-linear-to-br from-slate-950 via-slate-900 to-purple-950 p-8 text-white shadow-2xl shadow-slate-950/20 sm:p-10 md:order-first">
@@ -104,81 +70,12 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
                 {pageHeading}
               </h2>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="border border-slate-200/80 bg-slate-100/80 text-slate-700 transition hover:scale-[1.03] hover:bg-slate-200 hover:text-slate-900 dark:border-slate-700/80 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
-              onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
-              aria-label={themeLabel}
-            >
-              {mounted ? (
-                isDarkMode ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )
-              ) : (
-                <span className="h-4 w-4" />
-              )}
-            </Button>
           </div>
 
-          <div className="rounded-full bg-slate-100 p-1.5 dark:bg-slate-900/95">
-            <div className="grid grid-cols-2 gap-1 rounded-full bg-slate-100/80 p-1 shadow-sm shadow-slate-950/5 dark:bg-slate-950/80 dark:shadow-none">
-              {(['login', 'register'] as AuthTab[]).map((tab) => {
-                const active = activeTab === tab;
-                return (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setActiveTab(tab)}
-                    className={cn(
-                      'relative flex h-11 items-center justify-center rounded-full px-4 text-sm font-semibold transition-all',
-                      active
-                        ? 'bg-white text-slate-950 shadow-sm shadow-slate-950/10 dark:bg-slate-950 dark:text-white'
-                        : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
-                    )}
-                  >
-                    {tab === 'login' ? t('tabs.login') : t('tabs.register')}
-                    {active && (
-                      <motion.span
-                        layoutId="auth-tab"
-                        className="absolute inset-0 rounded-full bg-white/90 dark:bg-slate-950"
-                        transition={transition}
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          <AuthTabs activeTab={activeTab} />
 
           <div className="space-y-5 rounded-[2rem] border border-slate-200/70 bg-slate-50/80 p-6 shadow-[0_20px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/80 dark:shadow-none">
-            <AnimatePresence mode="wait" initial={false}>
-              {activeTab === 'login' ? (
-                <motion.div
-                  key="login"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={transition}
-                  className="space-y-6"
-                >
-                  <LoginForm />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="register"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={transition}
-                  className="space-y-6"
-                >
-                  <RegisterForm />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {children}
           </div>
 
           <div className="flex gap-2 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400">
@@ -186,6 +83,6 @@ export function AuthShell({ defaultTab = 'login' }: AuthShellProps) {
           </div>
         </div>
       </motion.div>
-    </div>
+    </main>
   );
 }
