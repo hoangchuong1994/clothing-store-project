@@ -43,6 +43,7 @@ import { AuthSuccessAlert } from './AuthSuccess';
  */
 export function LoginForm() {
   const t = useTranslations('auth');
+  const v = useTranslations('validation');
   const tc = useTranslations('common');
   const {
     register,
@@ -88,7 +89,7 @@ export function LoginForm() {
             role="alert"
             className="text-xs font-medium text-red-600 dark:text-red-400"
           >
-            {t(errors.email.message as string)}
+            {v(errors.email.message as string)}
           </p>
         )}
       </div>
@@ -117,7 +118,7 @@ export function LoginForm() {
             role="alert"
             className="text-xs font-medium text-red-600 dark:text-red-400"
           >
-            {t(errors.password.message as string)}
+            {v(errors.password.message as string)}
           </p>
         )}
       </div>

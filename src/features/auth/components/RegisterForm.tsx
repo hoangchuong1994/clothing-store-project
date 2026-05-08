@@ -21,6 +21,7 @@ import { usePasswordStrength } from '../hooks/usePasswordStrength';
  */
 export function RegisterForm() {
   const t = useTranslations('auth');
+  const v = useTranslations('validation');
   const tc = useTranslations('common');
   const {
     register,
@@ -63,7 +64,7 @@ export function RegisterForm() {
           />
           {formState.errors.name?.message && (
             <p id="register-name-error" className="mt-2 text-sm text-rose-500">
-              {t(formState.errors.name.message as string)}
+              {v(formState.errors.name.message as string)}
             </p>
           )}
         </div>
@@ -84,7 +85,7 @@ export function RegisterForm() {
           />
           {formState.errors.email?.message && (
             <p id="register-email-error" className="mt-2 text-sm text-rose-500">
-              {t(formState.errors.email.message as string)}
+              {v(formState.errors.email.message as string)}
             </p>
           )}
         </div>
@@ -98,7 +99,7 @@ export function RegisterForm() {
             autoComplete="new-password"
             register={register('password')}
             error={
-              formState.errors.password ? t(formState.errors.password.message as string) : undefined
+              formState.errors.password ? v(formState.errors.password.message as string) : undefined
             }
             disabled={isLoading}
             className="border border-slate-300 dark:border-slate-700"
@@ -115,7 +116,7 @@ export function RegisterForm() {
           register={register('passwordConfirm')}
           error={
             formState.errors.passwordConfirm
-              ? t(formState.errors.passwordConfirm.message as string)
+              ? v(formState.errors.passwordConfirm.message as string)
               : undefined
           }
           disabled={isLoading}

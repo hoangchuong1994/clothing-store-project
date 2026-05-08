@@ -1,23 +1,20 @@
 import { z } from 'zod';
 
 export const LoginSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'validation.required' })
-    .email({ message: 'validation.emailInvalid' }),
-  password: z.string().min(6, { message: 'validation.passwordMin' }),
+  email: z.string().min(1, { message: 'required' }).email({ message: 'email.invalid' }),
+  password: z.string().min(8, { message: 'password.min' }),
   remember: z.boolean().optional(),
 });
 
 export const RegisterSchema = LoginSchema.extend({
-  name: z.string().min(2, { message: 'validation.nameRequired' }),
-  passwordConfirm: z.string().min(1, { message: 'validation.confirmPassword' }),
+  name: z.string().min(2, { message: 'name.required' }),
+  passwordConfirm: z.string().min(1, { message: 'confirmPassword.required' }),
 }).superRefine((data, ctx) => {
   if (data.password !== data.passwordConfirm) {
     ctx.addIssue({
       code: 'custom',
       path: ['passwordConfirm'],
-      message: 'validation.passwordMismatch',
+      message: 'password.mismatch',
     });
   }
 });

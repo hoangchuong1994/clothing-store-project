@@ -14,13 +14,6 @@
     "accountNotLinked": "Tài khoản này chưa được liên kết. Vui lòng đăng nhập bằng nhà cung cấp đúng.",
     "emailNotVerified": "Vui lòng xác minh email của bạn trước khi đăng nhập."
   },
-  "validation": {
-    "required": "Trường này là bắt buộc",
-    "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
-    "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự",
-    "passwordMismatch": "Mật khẩu không khớp",
-    "nameRequired": "Vui lòng nhập tên đầy đủ của bạn"
-  },
   "network": {
     "offline": "Bạn đang offline. Vui lòng kiểm tra kết nối.",
     "timeout": "Yêu cầu đã hết thời gian. Vui lòng thử lại.",
