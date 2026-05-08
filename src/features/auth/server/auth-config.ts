@@ -3,8 +3,8 @@ import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
 import GitHub from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import bcrypt from 'bcryptjs';
 import prisma from '@/lib/server/prisma/prisma';
+import { comparePasswords } from '../infrastructure/security/hash';
 import { ROLE_SCOPES } from '../config/roles';
 
 const authProviders = [
@@ -63,7 +63,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!user || !user.password || !user.role || user.status !== 'ACTIVE') return null;
 
-        const valid = await bcrypt.compare(credentials.password, user.password);
+        const valid = await comparePasswords(credentials.password, user.password);
 
         if (!valid) return null;
 

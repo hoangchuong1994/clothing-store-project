@@ -5,7 +5,7 @@
 
 import { signIn } from 'next-auth/react';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
-import type { SocialProvider } from '../types/auth.types';
+import type { SocialProvider } from '../../domain/types';
 
 /**
  * Social provider configuration

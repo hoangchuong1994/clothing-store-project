@@ -3,8 +3,8 @@
  * Centralized error mapping and translation support
  */
 
-import type { AuthError, AuthErrorCode } from '../types/auth.types';
-import { AUTH_ERROR_CODES } from '../types/auth.types';
+import type { AuthError, AuthErrorCode } from '../domain/types';
+import { AUTH_ERROR_CODES } from '../domain/types';
 
 /**
  * Maps authentication errors to translateable error codes

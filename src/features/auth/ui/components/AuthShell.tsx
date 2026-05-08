@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
-import { AuthTabs, getActiveAuthTab } from '@/features/auth/components/AuthTabs';
+import { AuthTabs, getActiveAuthTab } from '@/features/auth/ui/components/AuthTabs';
 import { Sparkles, ShieldCheck } from '@/components/ui/icon';
 
 interface AuthShellProps {

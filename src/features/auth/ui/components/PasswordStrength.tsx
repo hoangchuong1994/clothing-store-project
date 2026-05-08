@@ -14,6 +14,17 @@ export function PasswordStrength({ strength, className }: PasswordStrengthProps)
   const t = useTranslations('auth');
   const tv = useTranslations('validation');
 
+  const levelConfig: Record<PasswordStrengthResult['level'], { labelKey: string; color: string }> =
+    {
+      weak: { labelKey: 'password.strength.weak', color: 'bg-rose-500' },
+      fair: { labelKey: 'password.strength.fair', color: 'bg-orange-500' },
+      good: { labelKey: 'password.strength.good', color: 'bg-amber-500' },
+      strong: { labelKey: 'password.strength.strong', color: 'bg-emerald-500' },
+      'very strong': { labelKey: 'password.strength.strong', color: 'bg-sky-500' },
+    };
+
+  const level = levelConfig[strength.level];
+
   return (
     <div
       className={`mt-3 rounded-3xl border border-slate-200 bg-white/80 p-3 text-sm transition-colors duration-200 dark:border-slate-800 dark:bg-slate-950/80 ${className}`}
@@ -27,12 +38,12 @@ export function PasswordStrength({ strength, className }: PasswordStrengthProps)
               : 'text-slate-900 dark:text-slate-100'
           }`}
         >
-          {tv(strength.level.labelKey)}
+          {tv(level.labelKey)}
         </span>
       </div>
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
         <div
-          className={`${strength.level.color} h-full rounded-full transition-[width] duration-300 ease-out`}
+          className={`${level.color} h-full rounded-full transition-[width] duration-300 ease-out`}
           style={{ width: strength.progress }}
         />
       </div>

@@ -5,9 +5,9 @@
 
 'use server';
 
-import type { AuthResponse } from '../types/auth.types';
-import { generateVerificationToken } from '../tokens/verification-token.generator';
-import { UserRepository } from '../repositories/user.repository';
+import type { AuthResponse } from '../domain/types';
+import { generateVerificationToken } from '../infrastructure/security/token.generator';
+import { UserRepository } from '../infrastructure/repositories/user.repository';
 import {
   buildResendVerificationResponse,
   buildSuccessfulVerificationResponse,
@@ -15,11 +15,13 @@ import {
   buildRateLimitErrorResponse,
 } from '../lib/response-builders';
 import { getClientIp } from '@/lib/server/utils/get-client-ip';
-import { logRegistrationAttempt } from '../lib/audit-logger';
-import { checkVerifyRateLimit, checkResendRateLimit } from '../lib/rate-limiter';
-import { RateLimitError } from '../errors/auth.errors';
-import { enqueueVerificationEmail } from '../mail/email.queue';
-import { AuthLogger } from '../lib/structured-logger';
+import {
+  checkVerifyRateLimit,
+  checkResendRateLimit,
+} from '../infrastructure/security/rate-limiter';
+import { RateLimitError } from '../domain/errors';
+import { enqueueVerificationEmail } from '../infrastructure/mail/email.queue';
+import { AuthLogger } from '../infrastructure/logging/structured-logger';
 
 /**
  * Verify user email with token
@@ -61,17 +63,6 @@ export async function verifyEmail(
       userId: result.userId,
       email: result.email,
       ip,
-    });
-
-    await logRegistrationAttempt({
-      userId: result.userId,
-      action: 'email_verified',
-      actionType: 'UPDATE',
-      ip,
-      metadata: {
-        email: result.email,
-        success: true,
-      },
     });
 
     return buildSuccessfulVerificationResponse();

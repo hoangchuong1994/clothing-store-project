@@ -4,8 +4,8 @@
  */
 
 import prisma from '@/lib/server/prisma/prisma';
-import { DuplicateEmailError, DatabaseError } from '../errors/auth.errors';
-import { hashToken } from '../tokens/verification-token.generator';
+import { DuplicateEmailError, DatabaseError } from '../../domain/errors';
+import { hashToken } from '../security/token.generator';
 
 export interface CreateUserWithVerificationInput {
   email: string;
@@ -204,6 +204,7 @@ export class UserRepository {
     try {
       return await prisma.user.findUnique({
         where: { email: email.toLowerCase() },
+        include: { role: true },
       });
     } catch (error) {
       console.error('Error finding user by email:', error);

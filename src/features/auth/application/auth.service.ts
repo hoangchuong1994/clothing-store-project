@@ -1,29 +1,22 @@
-/**
- * Auth service layer
- * Phase 3: Core business logic orchestration
- * Fully testable, dependency-injected, production-grade
- */
-
-import bcrypt from 'bcryptjs';
-import type { RegistrationInput } from '../validators/registration.validator';
-import { RegistrationValidator } from '../validators/registration.validator';
-import { UserRepository } from '../repositories/user.repository';
-import { generateVerificationToken } from '../tokens/verification-token.generator';
 import {
-  DuplicateEmailError,
-  DatabaseError,
-  ValidationError,
-  TokenNotFoundError,
-  TokenExpiredError,
-  TokenAlreadyUsedError,
+  RegistrationValidator,
+  type RegistrationInput,
+} from '../domain/validation/registration.validator';
+import { UserRepository } from '../infrastructure/repositories/user.repository';
+import { enqueueVerificationEmail } from '../infrastructure/mail/email.queue';
+import { generateVerificationToken } from '../infrastructure/security/token.generator';
+import { hashPassword, comparePasswords } from '../infrastructure/security/hash';
+import { AuthLogger } from '../infrastructure/logging/structured-logger';
+import {
   AuthError,
-} from '../errors/auth.errors';
-import { AuthLogger } from '../lib/structured-logger';
-import { enqueueVerificationEmail } from '../mail/email.queue';
+  DatabaseError,
+  DuplicateEmailError,
+  TokenAlreadyUsedError,
+  TokenExpiredError,
+  TokenNotFoundError,
+  ValidationError,
+} from '../domain/errors';
 
-/**
- * Result of registration operation
- */
 export interface RegisterResult {
   success: true;
   userId: string;
@@ -32,37 +25,25 @@ export interface RegisterResult {
   verificationExpiresAt: Date;
 }
 
-/**
- * Result of email verification
- */
 export interface VerifyEmailResult {
   success: true;
   userId: string;
   email: string;
 }
 
-/**
- * Auth service with full business logic
- * Fully decoupled from HTTP layer (can be used in tests, jobs, etc.)
- */
+export interface AuthenticatedUser {
+  id: string;
+  email: string;
+  role: string;
+  scopes: string[];
+}
+
 export class AuthService {
-  /**
-   * Register new user with email verification
-   *
-   * Flow:
-   * 1. Validate input
-   * 2. Hash password
-   * 3. Generate token
-   * 4. Create user + token atomically
-   *
-   * @param input Registration input
-   * @returns Registration result with verification token
-   */
   static async registerUser(input: RegistrationInput): Promise<RegisterResult> {
     try {
       await RegistrationValidator.validate(input);
 
-      const hashedPassword = await bcrypt.hash(input.password, 12);
+      const hashedPassword = await hashPassword(input.password);
       const { token: rawToken, hashedToken, expiresAt } = generateVerificationToken();
 
       const { user, verificationToken } = await UserRepository.createWithVerificationToken(
@@ -108,17 +89,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Verify user email with token
-   *
-   * Security:
-   * - Token is one-time use
-   * - Tokens expire after 15 minutes
-   * - Token comparison is constant-time (via hash)
-   *
-   * @param rawToken Raw token from user
-   * @returns Verification result with user info
-   */
   static async verifyEmail(rawToken: string): Promise<VerifyEmailResult> {
     try {
       const result = await UserRepository.verifyEmailWithToken(rawToken);
@@ -139,17 +109,15 @@ export class AuthService {
       }
 
       if (error instanceof Error) {
-        const message = error.message;
-
-        if (message.includes('TOKEN_NOT_FOUND')) {
+        if (error.message === 'TOKEN_NOT_FOUND') {
           throw new TokenNotFoundError();
         }
 
-        if (message.includes('TOKEN_EXPIRED')) {
+        if (error.message === 'TOKEN_EXPIRED') {
           throw new TokenExpiredError();
         }
 
-        if (message.includes('TOKEN_ALREADY_USED')) {
+        if (error.message === 'TOKEN_ALREADY_USED') {
           throw new TokenAlreadyUsedError();
         }
       }
@@ -159,17 +127,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Resend verification email
-   *
-   * Security:
-   * - Rate limited to prevent spam
-   * - Returns generic success to prevent enumeration
-   * - Only resends if token exists and not used
-   *
-   * @param email User email
-   * @returns Whether email was queued
-   */
   static async resendVerificationEmail(email: string): Promise<boolean> {
     try {
       const normalizedEmail = email.toLowerCase().trim();
@@ -183,7 +140,7 @@ export class AuthService {
       }
 
       const { token, hashedToken, expiresAt } = generateVerificationToken();
-      const userId = (existingToken as { userId?: string | null }).userId;
+      const userId = existingToken.userId;
 
       await UserRepository.createNewVerificationToken(normalizedEmail, {
         hashedToken,
@@ -192,7 +149,7 @@ export class AuthService {
       });
 
       await enqueueVerificationEmail({
-        userId: userId || '',
+        userId: userId ?? '',
         email: normalizedEmail,
         token,
         expiresAt,
@@ -211,14 +168,8 @@ export class AuthService {
     }
   }
 
-  /**
-   * Check password strength
-   * Wrapper around validator for reusability
-   */
   static async validatePassword(password: string): Promise<boolean> {
     try {
-      // Simulated password validation
-      // In real implementation, would use zxcvbn
       return password.length >= 12;
     } catch (error) {
       AuthLogger.error('password_validation_error', error as Error);
@@ -226,10 +177,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Cleanup expired tokens
-   * Should be called by cron job
-   */
   static async cleanupExpiredTokens(): Promise<number> {
     try {
       const deletedCount = await UserRepository.cleanupExpiredTokens();
@@ -240,9 +187,31 @@ export class AuthService {
 
       return deletedCount;
     } catch (error) {
-      AuthLogger.critical('token_cleanup_error', error as Error);
+      AuthLogger.error('token_cleanup_error', error as Error);
       throw error;
     }
+  }
+
+  static async validateCredentials(
+    email: string,
+    password: string,
+  ): Promise<AuthenticatedUser | null> {
+    const user = await UserRepository.findByEmail(email.toLowerCase().trim());
+    if (!user || !user.password || !user.role || user.status !== 'ACTIVE') {
+      return null;
+    }
+
+    const valid = await comparePasswords(password, user.password);
+    if (!valid) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      email: user.email || '',
+      role: user.role.name,
+      scopes: [],
+    };
   }
 }
 

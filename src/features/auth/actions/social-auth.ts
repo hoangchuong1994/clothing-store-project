@@ -2,10 +2,10 @@
 
 import { signIn } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import type { AuthResponse } from '../types/auth.types';
+import type { AuthResponse } from '../domain/types';
 import { AuthErrorHandler } from '../lib/auth-errors';
-import { AUTH_ERROR_CODES } from '../types/auth.types';
-import { signInWithProvider } from '../lib/social-auth';
+import { AUTH_ERROR_CODES } from '../domain/types';
+import { signInWithProvider } from '../infrastructure/oauth/social-auth';
 
 /**
  * Handle social authentication

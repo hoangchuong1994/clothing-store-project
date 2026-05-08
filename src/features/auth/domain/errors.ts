@@ -1,14 +1,8 @@
-/**
- * Production-grade auth error classes
- * Enables structured error handling with proper classification
- */
+import { AUTH_ERROR_CODES } from './types';
 
-/**
- * Base auth error with structured metadata
- */
 export class AuthError extends Error {
   constructor(
-    public code: string,
+    public code: keyof typeof AUTH_ERROR_CODES,
     public statusCode: number = 400,
     public retryable: boolean = false,
     message?: string,
@@ -20,9 +14,6 @@ export class AuthError extends Error {
   }
 }
 
-/**
- * Duplicate email registration attempt
- */
 export class DuplicateEmailError extends AuthError {
   constructor(email: string) {
     super('EMAIL_ALREADY_EXISTS', 409, false, 'Email already registered', { email });
@@ -31,9 +22,6 @@ export class DuplicateEmailError extends AuthError {
   }
 }
 
-/**
- * Verification token not found
- */
 export class TokenNotFoundError extends AuthError {
   constructor() {
     super('TOKEN_NOT_FOUND', 404, false, 'Verification token not found');
@@ -42,9 +30,6 @@ export class TokenNotFoundError extends AuthError {
   }
 }
 
-/**
- * Verification token expired
- */
 export class TokenExpiredError extends AuthError {
   constructor() {
     super('TOKEN_EXPIRED', 410, true, 'Verification token has expired');
@@ -53,9 +38,6 @@ export class TokenExpiredError extends AuthError {
   }
 }
 
-/**
- * Verification token already used
- */
 export class TokenAlreadyUsedError extends AuthError {
   constructor() {
     super('TOKEN_ALREADY_USED', 410, false, 'Verification token has already been used');
@@ -64,9 +46,6 @@ export class TokenAlreadyUsedError extends AuthError {
   }
 }
 
-/**
- * Invalid input validation
- */
 export class ValidationError extends AuthError {
   constructor(
     public errors: Array<{ field: string; message: string }>,
@@ -78,9 +57,6 @@ export class ValidationError extends AuthError {
   }
 }
 
-/**
- * Rate limit exceeded
- */
 export class RateLimitError extends AuthError {
   constructor(retryAfter?: number) {
     super(
@@ -95,9 +71,6 @@ export class RateLimitError extends AuthError {
   }
 }
 
-/**
- * Email sending failed
- */
 export class EmailSendError extends AuthError {
   constructor(reason?: string) {
     super(
@@ -112,9 +85,6 @@ export class EmailSendError extends AuthError {
   }
 }
 
-/**
- * Database operation failed
- */
 export class DatabaseError extends AuthError {
   constructor(message?: string) {
     super('DATABASE_ERROR', 500, true, message || 'Database operation failed');
@@ -123,9 +93,6 @@ export class DatabaseError extends AuthError {
   }
 }
 
-/**
- * Unknown/unhandled error
- */
 export class UnknownError extends AuthError {
   constructor(message?: string) {
     super('UNKNOWN_ERROR', 500, false, message || 'An unexpected error occurred');
@@ -134,34 +101,31 @@ export class UnknownError extends AuthError {
   }
 }
 
-/**
- * Type guard for auth errors
- */
 export function isAuthError(error: unknown): error is AuthError {
   return error instanceof AuthError;
 }
 
-/**
- * Safe error message for API responses
- * Hides sensitive information in production
- */
+export function createErrorPayload(error: AuthError) {
+  return {
+    code: AUTH_ERROR_CODES[error.code as keyof typeof AUTH_ERROR_CODES] ?? 'error.unknownError',
+    message: error.code,
+    details: error.context,
+    isTranslated: false,
+  } as const;
+}
+
 export function getSafeErrorMessage(error: unknown): string {
   if (isAuthError(error)) {
-    // Use error code as i18n key
-    return error.code;
+    return AUTH_ERROR_CODES[error.code as keyof typeof AUTH_ERROR_CODES] ?? 'error.unknownError';
   }
 
   if (error instanceof Error) {
-    // Generic message in production
-    return process.env.NODE_ENV === 'development' ? error.message : 'UNKNOWN_ERROR';
+    return process.env.NODE_ENV === 'development' ? error.message : 'error.unknownError';
   }
 
-  return 'UNKNOWN_ERROR';
+  return 'error.unknownError';
 }
 
-/**
- * Extract retryable errors for client-side handling
- */
 export function isRetryableError(error: unknown): boolean {
   if (isAuthError(error)) {
     return error.retryable;

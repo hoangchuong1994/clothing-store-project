@@ -9,7 +9,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { triggerTokenCleanup } from '@/features/auth/jobs/inngest';
-import { AuthLogger } from '@/features/auth/lib/structured-logger';
+import { AuthLogger } from '@/features/auth/infrastructure/logging/structured-logger';
 
 /**
  * Cron job endpoint

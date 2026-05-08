@@ -3,7 +3,7 @@
  * Phase 3: Inngest background job queue with automatic retries
  */
 
-import { queueVerificationEmail as queueVerificationEmailJob } from '../jobs/inngest';
+import { queueVerificationEmail as queueVerificationEmailJob } from '../../jobs/inngest';
 
 interface VerificationEmailData {
   userId: string;

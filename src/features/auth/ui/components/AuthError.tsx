@@ -8,11 +8,20 @@
 import { useTranslations } from 'next-intl';
 import { AlertCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { AuthError } from '../types/auth.types';
-import { isTranslationKey } from '../lib/auth-errors';
+import type { AuthError as DomainAuthError } from '../../domain/types';
+import { isTranslationKey } from '../../lib/auth-errors';
+
+export type AuthErrorPayload =
+  | DomainAuthError
+  | {
+      message: string;
+      code?: string;
+      details?: Record<string, unknown>;
+      isTranslated?: boolean;
+    };
 
 interface AuthErrorProps {
-  error: AuthError | null;
+  error: AuthErrorPayload | null;
   onDismiss?: () => void;
   className?: string;
 }

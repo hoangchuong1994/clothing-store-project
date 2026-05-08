@@ -7,8 +7,8 @@
 
 import { inngest } from './inngest';
 import { sendVerificationEmail, sendVerificationForgotPassword } from '../lib/mail';
-import { UserRepository } from '../repositories/user.repository';
-import { AuthLogger } from '../lib/structured-logger';
+import { UserRepository } from '../infrastructure/repositories/user.repository';
+import { AuthLogger } from '../infrastructure/logging/structured-logger';
 
 /**
  * Handle verification email sending

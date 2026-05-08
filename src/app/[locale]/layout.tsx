@@ -3,7 +3,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { ReduxProvider } from '@/lib/client/providers/ReduxProvider';
-import { AuthenticationProviders } from '@/features/auth/components/AuthProviders';
+import { AuthenticationProviders } from '@/features/auth/ui/components/AuthProviders';
 
 export default async function LocaleLayout({
   children,

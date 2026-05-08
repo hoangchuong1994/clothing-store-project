@@ -3,9 +3,10 @@
  * Ensures consistent, secure API responses
  */
 
-import type { AuthError } from '../errors/auth.errors';
-import type { AuthResponse } from '../types/auth.types';
-import { getSafeErrorMessage } from '../errors/auth.errors';
+import type { AuthError } from '../domain/errors';
+import type { AuthResponse } from '../domain/types';
+import { AUTH_ERROR_CODES } from '../domain/types';
+import { getSafeErrorMessage } from '../domain/errors';
 
 /**
  * Type for log metadata values
@@ -49,7 +50,7 @@ export function buildGenericErrorResponse(error?: AuthError | Error): AuthRespon
   return {
     success: false,
     error: {
-      code: 'REGISTRATION_FAILED',
+      code: AUTH_ERROR_CODES.GENERIC_FAILURE,
       message: 'registration.error.generic',
       details:
         process.env.NODE_ENV === 'development' && error
@@ -67,7 +68,7 @@ export function buildRateLimitErrorResponse(retryAfter?: number): AuthResponse<n
   return {
     success: false,
     error: {
-      code: 'RATE_LIMITED',
+      code: AUTH_ERROR_CODES.RATE_LIMITED,
       message: 'auth.error.rateLimited',
       details: retryAfter ? { retryAfter } : undefined,
     },
@@ -84,7 +85,7 @@ export function buildValidationErrorResponse(
   return {
     success: false,
     error: {
-      code: 'INVALID_FIELDS',
+      code: AUTH_ERROR_CODES.INVALID_FIELDS,
       message: 'auth.error.invalidFields',
       details: {
         errors: errors.map((e) => ({
@@ -120,7 +121,7 @@ export function buildVerificationErrorResponse(): AuthResponse<never> {
   return {
     success: false,
     error: {
-      code: 'VERIFICATION_FAILED',
+      code: AUTH_ERROR_CODES.VERIFICATION_FAILED,
       message: 'auth.error.verificationFailed',
     },
   };
