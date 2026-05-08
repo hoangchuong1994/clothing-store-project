@@ -1,0 +1,87 @@
+{
+  "buttons": {
+    "signin": "Sign in",
+    "signup": "Sign up",
+    "continue": "Continue",
+    "reset": "Reset password",
+    "resend": "Resend",
+    "cancel": "Cancel",
+    "back": "Back",
+    "submit": "Submit",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "retry": "Retry",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear"
+  },
+  "labels": {
+    "email": "Email",
+    "password": "Password",
+    "name": "Full name",
+    "confirmPassword": "Confirm password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Phone number",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "zipCode": "ZIP Code",
+    "rememberMe": "Remember me"
+  },
+  "placeholders": {
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "name": "Enter your full name",
+    "confirmPassword": "Confirm your password",
+    "search": "Search...",
+    "firstName": "Enter your first name",
+    "lastName": "Enter your last name",
+    "phone": "Enter your phone number",
+    "address": "Enter your address",
+    "city": "Enter your city",
+    "country": "Select your country",
+    "zipCode": "Enter your ZIP code"
+  },
+  "loading": {
+    "signin": "Signing you in...",
+    "signup": "Creating your account...",
+    "reset": "Sending reset link...",
+    "update": "Updating...",
+    "saving": "Saving...",
+    "loading": "Loading..."
+  },
+  "success": {
+    "accountCreated": "Account created successfully. Check your email for verification.",
+    "passwordResetSent": "Password reset link sent. Check your email.",
+    "passwordReset": "Password reset successfully",
+    "emailVerified": "Email verified successfully",
+    "saved": "Saved successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "account": "Account",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {current} of {total}",
+    "showing": "Showing {from} to {to} of {total} results"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  }
+}

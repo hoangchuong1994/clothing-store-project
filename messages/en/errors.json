@@ -1,5 +1,39 @@
 {
-  "title": "An Error Occurred",
-  "description": "Sorry, there's an issue with our store website. Please try again later.",
-  "btnText": "Retry"
+  "generic": "Something went wrong. Please try again.",
+  "invalidCredentials": "Invalid email or password",
+  "rateLimited": "Too many attempts. Please wait a moment and try again.",
+  "verificationFailed": "Verification failed. Please try again.",
+  "oauthError": "Unable to sign in with this provider. Please try again.",
+  "accountNotLinked": "This account isn't linked. Please sign in with the correct provider.",
+  "emailNotVerified": "Please verify your email before signing in.",
+  "auth": {
+    "invalidCredentials": "Invalid email or password",
+    "rateLimited": "Too many attempts. Please wait a moment and try again.",
+    "verificationFailed": "Verification failed. Please try again.",
+    "oauthError": "Unable to sign in with this provider. Please try again.",
+    "accountNotLinked": "This account isn't linked. Please sign in with the correct provider.",
+    "emailNotVerified": "Please verify your email before signing in."
+  },
+  "validation": {
+    "required": "This field is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords don't match",
+    "nameRequired": "Please enter your full name"
+  },
+  "network": {
+    "offline": "You're offline. Please check your connection.",
+    "timeout": "Request timed out. Please try again.",
+    "serverError": "Server error. Please try again later."
+  },
+  "notFound": {
+    "page": "Page not found",
+    "product": "Product not found",
+    "resource": "Resource not found"
+  },
+  "page": {
+    "title": "An Error Occurred",
+    "description": "Sorry, there's an issue with our store website. Please try again later.",
+    "btnText": "Retry"
+  }
 }

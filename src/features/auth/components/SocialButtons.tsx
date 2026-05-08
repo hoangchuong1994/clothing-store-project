@@ -24,7 +24,7 @@ export function SocialButtons({ onGoogle, onGitHub, disabled = false }: SocialBu
         onClick={onGoogle}
       >
         <GoogleIcon className="h-4 w-4" />
-        {t('social.continueWithGoogle')}
+        {t('social.google')}
       </Button>
       <Button
         type="button"
@@ -35,7 +35,7 @@ export function SocialButtons({ onGoogle, onGitHub, disabled = false }: SocialBu
         onClick={onGitHub}
       >
         <GithubIcon className="h-4 w-4" />
-        {t('social.continueWithGitHub')}
+        {t('social.github')}
       </Button>
     </div>
   );

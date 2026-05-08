@@ -1,0 +1,36 @@
+{
+  "required": "Trường này là bắt buộc",
+  "email": {
+    "invalid": "Vui lòng nhập địa chỉ email hợp lệ",
+    "required": "Email là bắt buộc"
+  },
+  "password": {
+    "min": "Mật khẩu phải có ít nhất 8 ký tự",
+    "max": "Mật khẩu phải ít hơn 128 ký tự",
+    "required": "Mật khẩu là bắt buộc",
+    "mismatch": "Mật khẩu không khớp",
+    "weak": "Mật khẩu quá yếu",
+    "strength": {
+      "tooWeak": "Quá yếu",
+      "weak": "Yếu",
+      "fair": "Trung bình",
+      "good": "Tốt",
+      "strong": "Mạnh"
+    }
+  },
+  "name": {
+    "required": "Vui lòng nhập tên đầy đủ của bạn",
+    "min": "Tên phải có ít nhất 2 ký tự",
+    "max": "Tên phải ít hơn 50 ký tự"
+  },
+  "confirmPassword": {
+    "required": "Vui lòng xác nhận mật khẩu của bạn",
+    "mismatch": "Mật khẩu không khớp"
+  },
+  "generic": {
+    "required": "Trường này là bắt buộc",
+    "min": "Độ dài tối thiểu là {min} ký tự",
+    "max": "Độ dài tối đa là {max} ký tự",
+    "invalid": "Định dạng không hợp lệ"
+  }
+}

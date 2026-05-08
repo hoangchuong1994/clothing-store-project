@@ -1,8 +1,9 @@
 export const strengthLevels = [
-  { labelKey: 'strength.tooWeak', color: 'bg-rose-500' },
-  { labelKey: 'strength.fair', color: 'bg-amber-400' },
-  { labelKey: 'strength.good', color: 'bg-sky-400' },
-  { labelKey: 'strength.strong', color: 'bg-emerald-400' },
+  { labelKey: 'validation.password.strength.tooWeak', color: 'bg-rose-500' },
+  { labelKey: 'validation.password.strength.weak', color: 'bg-amber-400' },
+  { labelKey: 'validation.password.strength.fair', color: 'bg-sky-400' },
+  { labelKey: 'validation.password.strength.good', color: 'bg-emerald-400' },
+  { labelKey: 'validation.password.strength.strong', color: 'bg-emerald-400' },
 ] as const;
 
 export function getPasswordStrength(password: string) {

@@ -1,0 +1,36 @@
+{
+  "required": "This field is required",
+  "email": {
+    "invalid": "Please enter a valid email address",
+    "required": "Email is required"
+  },
+  "password": {
+    "min": "Password must be at least 8 characters",
+    "max": "Password must be less than 128 characters",
+    "required": "Password is required",
+    "mismatch": "Passwords don't match",
+    "weak": "Password is too weak",
+    "strength": {
+      "tooWeak": "Too weak",
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    }
+  },
+  "name": {
+    "required": "Please enter your full name",
+    "min": "Name must be at least 2 characters",
+    "max": "Name must be less than 50 characters"
+  },
+  "confirmPassword": {
+    "required": "Please confirm your password",
+    "mismatch": "Passwords don't match"
+  },
+  "generic": {
+    "required": "This field is required",
+    "min": "Minimum length is {min} characters",
+    "max": "Maximum length is {max} characters",
+    "invalid": "Invalid format"
+  }
+}

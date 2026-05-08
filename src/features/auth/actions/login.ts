@@ -12,17 +12,20 @@ export async function loginWithCredentials(
   credentials: LoginSchema,
 ): Promise<AuthResponse<{ redirectUrl?: string }>> {
   try {
-    // Validate input
-    if (!credentials.email || !credentials.password) {
+    const validatedFields = LoginSchema.safeParse(credentials);
+
+    if (!validatedFields.success) {
       return {
         success: false,
         error: AuthErrorHandler.createError(AUTH_ERROR_CODES.INVALID_FIELDS),
       };
     }
 
+    const { email, password } = validatedFields.data;
+
     // Find user in database
     const user = await prisma.user.findUnique({
-      where: { email: credentials.email },
+      where: { email: email },
       include: {
         role: true,
       },
@@ -37,7 +40,7 @@ export async function loginWithCredentials(
     }
 
     // Verify password
-    const valid = await bcrypt.compare(credentials.password, user.password);
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
       return {
         success: false,

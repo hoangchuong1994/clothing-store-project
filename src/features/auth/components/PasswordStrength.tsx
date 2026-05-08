@@ -12,6 +12,7 @@ interface PasswordStrengthProps {
  */
 export function PasswordStrength({ strength, className }: PasswordStrengthProps) {
   const t = useTranslations('auth');
+  const tv = useTranslations('validation');
 
   return (
     <div
@@ -26,7 +27,7 @@ export function PasswordStrength({ strength, className }: PasswordStrengthProps)
               : 'text-slate-900 dark:text-slate-100'
           }`}
         >
-          {t(strength.level.labelKey)}
+          {tv(strength.level.labelKey)}
         </span>
       </div>
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">

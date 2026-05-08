@@ -21,6 +21,7 @@ import { usePasswordStrength } from '../hooks/usePasswordStrength';
  */
 export function RegisterForm() {
   const t = useTranslations('auth');
+  const tc = useTranslations('common');
   const {
     register,
     handleSubmit,
@@ -43,17 +44,17 @@ export function RegisterForm() {
       {error && <AuthErrorAlert error={error} onDismiss={clearError} />}
 
       {/* Success Alert */}
-      {success && <AuthSuccessAlert message={t('signup.successMessage')} />}
+      {success && <AuthSuccessAlert message={tc('success.accountCreated')} />}
 
       <div className="grid gap-4">
         {/* Name Field */}
         <div>
-          <Label htmlFor="register-name">{t('signup.name')}</Label>
+          <Label htmlFor="register-name">{tc('labels.name')}</Label>
           <Input
             id="register-name"
             type="text"
             autoComplete="name"
-            placeholder={t('form.placeholderName')}
+            placeholder={tc('placeholders.name')}
             {...register('name')}
             aria-invalid={Boolean(formState.errors.name)}
             aria-describedby={formState.errors.name ? 'register-name-error' : undefined}
@@ -69,12 +70,12 @@ export function RegisterForm() {
 
         {/* Email Field */}
         <div>
-          <Label htmlFor="register-email">{t('signup.email')}</Label>
+          <Label htmlFor="register-email">{tc('labels.email')}</Label>
           <Input
             id="register-email"
             type="email"
             autoComplete="email"
-            placeholder={t('form.placeholderEmail')}
+            placeholder={tc('placeholders.email')}
             {...register('email')}
             aria-invalid={Boolean(formState.errors.email)}
             aria-describedby={formState.errors.email ? 'register-email-error' : undefined}
@@ -92,8 +93,8 @@ export function RegisterForm() {
         <div>
           <PasswordInput
             id="register-password"
-            label={t('signup.password')}
-            placeholder={t('form.placeholderPasswordCreate')}
+            label={tc('labels.password')}
+            placeholder={tc('placeholders.password')}
             autoComplete="new-password"
             register={register('password')}
             error={
@@ -108,8 +109,8 @@ export function RegisterForm() {
         {/* Confirm Password Field */}
         <PasswordInput
           id="register-confirm-password"
-          label={t('signup.confirmPassword')}
-          placeholder={t('form.placeholderPasswordRepeat')}
+          label={tc('labels.confirmPassword')}
+          placeholder={tc('placeholders.confirmPassword')}
           autoComplete="new-password"
           register={register('passwordConfirm')}
           error={
@@ -132,11 +133,11 @@ export function RegisterForm() {
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-            <span>{t('form.creatingAccount')}</span>
+            <span>{tc('loading.signup')}</span>
           </div>
         ) : (
           <>
-            <span>{t('signup.button')}</span>
+            <span>{tc('buttons.signup')}</span>
             <ArrowRight className="ml-auto h-5 w-5" aria-hidden="true" />
           </>
         )}
@@ -145,9 +146,7 @@ export function RegisterForm() {
       {/* Divider */}
       <div className="relative flex items-center gap-3">
         <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
-        <span className="text-xs text-slate-500 dark:text-slate-400">
-          {t('form.orContinueWith')}
-        </span>
+        <span className="text-xs text-slate-500 dark:text-slate-400">{t('social.title')}</span>
         <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
       </div>
 

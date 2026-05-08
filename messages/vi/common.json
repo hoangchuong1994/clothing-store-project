@@ -1,0 +1,87 @@
+{
+  "buttons": {
+    "signin": "Đăng nhập",
+    "signup": "Đăng ký",
+    "continue": "Tiếp tục",
+    "reset": "Đặt lại mật khẩu",
+    "resend": "Gửi lại",
+    "cancel": "Hủy",
+    "back": "Quay lại",
+    "submit": "Gửi",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "close": "Đóng",
+    "retry": "Thử lại",
+    "loading": "Đang tải...",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "clear": "Xóa"
+  },
+  "labels": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "name": "Tên đầy đủ",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "city": "Thành phố",
+    "country": "Quốc gia",
+    "zipCode": "Mã ZIP",
+    "rememberMe": "Ghi nhớ tôi"
+  },
+  "placeholders": {
+    "email": "Nhập email của bạn",
+    "password": "Nhập mật khẩu của bạn",
+    "name": "Nhập tên đầy đủ của bạn",
+    "confirmPassword": "Xác nhận mật khẩu của bạn",
+    "search": "Tìm kiếm...",
+    "firstName": "Nhập tên của bạn",
+    "lastName": "Nhập họ của bạn",
+    "phone": "Nhập số điện thoại của bạn",
+    "address": "Nhập địa chỉ của bạn",
+    "city": "Nhập thành phố của bạn",
+    "country": "Chọn quốc gia của bạn",
+    "zipCode": "Nhập mã ZIP của bạn"
+  },
+  "loading": {
+    "signin": "Đang đăng nhập...",
+    "signup": "Đang tạo tài khoản...",
+    "reset": "Đang gửi liên kết đặt lại...",
+    "update": "Đang cập nhật...",
+    "saving": "Đang lưu...",
+    "loading": "Đang tải..."
+  },
+  "success": {
+    "accountCreated": "Tài khoản đã được tạo thành công. Kiểm tra email của bạn để xác minh.",
+    "passwordResetSent": "Liên kết đặt lại mật khẩu đã được gửi. Kiểm tra email của bạn.",
+    "passwordReset": "Mật khẩu đã được đặt lại thành công",
+    "emailVerified": "Email đã được xác minh thành công",
+    "saved": "Đã lưu thành công",
+    "updated": "Đã cập nhật thành công",
+    "deleted": "Đã xóa thành công"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "cart": "Giỏ hàng",
+    "account": "Tài khoản",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  },
+  "pagination": {
+    "previous": "Trước",
+    "next": "Tiếp",
+    "page": "Trang {current} của {total}",
+    "showing": "Hiển thị {from} đến {to} của {total} kết quả"
+  },
+  "status": {
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "pending": "Đang chờ",
+    "completed": "Hoàn thành",
+    "cancelled": "Đã hủy"
+  }
+}

@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { AlertCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { AuthError } from '../types/auth.types';
+import { isTranslationKey } from '../lib/auth-errors';
 
 interface AuthErrorProps {
   error: AuthError | null;
@@ -28,7 +29,7 @@ export function AuthErrorDisplay({ error, onDismiss, className = '' }: AuthError
   // Get the error message - could be a translation key or raw text.
   // If the translation key is missing, fall back to raw message text.
   let displayMessage = error.message;
-  if (error.isTranslated === false) {
+  if (error.isTranslated === false || isTranslationKey(error.message)) {
     try {
       displayMessage = t(error.message);
     } catch {

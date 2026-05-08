@@ -10,10 +10,10 @@ type AuthTab = 'login' | 'register';
 const authTabItems: Array<{
   value: AuthTab;
   route: '/signin' | '/signup';
-  labelKey: 'tabs.login' | 'tabs.register';
+  labelKey: 'buttons.signin' | 'buttons.signup';
 }> = [
-  { value: 'login', route: '/signin', labelKey: 'tabs.login' },
-  { value: 'register', route: '/signup', labelKey: 'tabs.register' },
+  { value: 'login', route: '/signin', labelKey: 'buttons.signin' },
+  { value: 'register', route: '/signup', labelKey: 'buttons.signup' },
 ];
 
 const transition = { duration: 0.28, ease: 'easeOut' as const };
@@ -34,7 +34,7 @@ interface AuthTabsProps {
 }
 
 export function AuthTabs({ activeTab }: AuthTabsProps) {
-  const t = useTranslations('auth');
+  const tc = useTranslations('common');
 
   return (
     <div className="rounded-full bg-slate-100 p-1.5 dark:bg-slate-900/95">
@@ -53,7 +53,7 @@ export function AuthTabs({ activeTab }: AuthTabsProps) {
                   : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
               )}
             >
-              {t(tab.labelKey)}
+              {tc(tab.labelKey)}
               {active && (
                 <motion.span
                   layoutId="auth-tab"

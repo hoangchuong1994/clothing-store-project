@@ -43,6 +43,7 @@ import { AuthSuccessAlert } from './AuthSuccess';
  */
 export function LoginForm() {
   const t = useTranslations('auth');
+  const tc = useTranslations('common');
   const {
     register,
     handleSubmit,
@@ -61,19 +62,19 @@ export function LoginForm() {
       {error && <AuthErrorAlert error={error} onDismiss={clearError} />}
 
       {/* Success Alert */}
-      {success && <AuthSuccessAlert message={t('signin.successMessage')} />}
+      {success && <AuthSuccessAlert message={tc('success.accountCreated')} />}
 
       {/* Email Field */}
       <div className="space-y-2">
         <Label htmlFor="email" className="text-sm font-medium">
-          {t('signin.email')}
+          {tc('labels.email')}
         </Label>
 
         <Input
           id="email"
           type="email"
           autoComplete="email"
-          placeholder={t('form.placeholderEmail')}
+          placeholder={tc('placeholders.email')}
           disabled={isLoading}
           aria-invalid={Boolean(errors.email)}
           aria-describedby={errors.email ? 'email-error' : undefined}
@@ -95,14 +96,14 @@ export function LoginForm() {
       {/* Password Field */}
       <div className="space-y-2">
         <Label htmlFor="password" className="text-sm font-medium">
-          {t('signin.password')}
+          {tc('labels.password')}
         </Label>
 
         <Input
           id="password"
           type="password"
           autoComplete="current-password"
-          placeholder={t('form.placeholderPassword')}
+          placeholder={tc('placeholders.password')}
           disabled={isLoading}
           aria-invalid={Boolean(errors.password)}
           aria-describedby={errors.password ? 'password-error' : undefined}
@@ -128,13 +129,13 @@ export function LoginForm() {
             id="remember"
             disabled={isLoading}
             {...register('remember')}
-            aria-label={t('form.rememberMe')}
+            aria-label={tc('labels.rememberMe')}
           />
           <Label
             htmlFor="remember"
             className="cursor-pointer text-sm font-normal text-slate-600 dark:text-slate-300"
           >
-            {t('form.rememberMe')}
+            {tc('labels.rememberMe')}
           </Label>
         </div>
 
@@ -142,7 +143,7 @@ export function LoginForm() {
           href="/forgot-password"
           className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
         >
-          {t('form.forgotPassword')}
+          {t('signin.forgotPassword')}
         </Link>
       </div>
 
@@ -156,11 +157,11 @@ export function LoginForm() {
         {isLoading ? (
           <div className="flex items-center justify-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-            <span>{t('signin.loading')}</span>
+            <span>{tc('loading.signin')}</span>
           </div>
         ) : (
           <>
-            <span>{t('signin.button')}</span>
+            <span>{tc('buttons.continue')}</span>
             <ArrowRight className="ml-auto h-5 w-5" aria-hidden="true" />
           </>
         )}
@@ -169,7 +170,7 @@ export function LoginForm() {
       {/* Divider */}
       <div className="relative flex items-center gap-3">
         <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
-        <span className="text-xs text-slate-500 dark:text-slate-400">{t('form.orContinue')}</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400">{t('social.title')}</span>
         <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
       </div>
 

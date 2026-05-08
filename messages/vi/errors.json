@@ -1,5 +1,39 @@
 {
-  "title": "Đã xảy ra lỗi",
-  "description": "Xin lỗi, có vấn đề với trang web cửa hàng của chúng tôi. Vui lòng thử lại sau.",
-  "btnText": "Thử lại"
+  "generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
+  "invalidCredentials": "Email hoặc mật khẩu không hợp lệ",
+  "rateLimited": "Quá nhiều lần thử. Vui lòng đợi một chút và thử lại.",
+  "verificationFailed": "Xác minh thất bại. Vui lòng thử lại.",
+  "oauthError": "Không thể đăng nhập bằng nhà cung cấp này. Vui lòng thử lại.",
+  "accountNotLinked": "Tài khoản này chưa được liên kết. Vui lòng đăng nhập bằng nhà cung cấp đúng.",
+  "emailNotVerified": "Vui lòng xác minh email của bạn trước khi đăng nhập.",
+  "auth": {
+    "invalidCredentials": "Email hoặc mật khẩu không hợp lệ",
+    "rateLimited": "Quá nhiều lần thử. Vui lòng đợi một chút và thử lại.",
+    "verificationFailed": "Xác minh thất bại. Vui lòng thử lại.",
+    "oauthError": "Không thể đăng nhập bằng nhà cung cấp này. Vui lòng thử lại.",
+    "accountNotLinked": "Tài khoản này chưa được liên kết. Vui lòng đăng nhập bằng nhà cung cấp đúng.",
+    "emailNotVerified": "Vui lòng xác minh email của bạn trước khi đăng nhập."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
+    "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự",
+    "passwordMismatch": "Mật khẩu không khớp",
+    "nameRequired": "Vui lòng nhập tên đầy đủ của bạn"
+  },
+  "network": {
+    "offline": "Bạn đang offline. Vui lòng kiểm tra kết nối.",
+    "timeout": "Yêu cầu đã hết thời gian. Vui lòng thử lại.",
+    "serverError": "Lỗi máy chủ. Vui lòng thử lại sau."
+  },
+  "notFound": {
+    "page": "Không tìm thấy trang",
+    "product": "Không tìm thấy sản phẩm",
+    "resource": "Không tìm thấy tài nguyên"
+  },
+  "page": {
+    "title": "Đã xảy ra lỗi",
+    "description": "Xin lỗi, có vấn đề với trang web cửa hàng của chúng tôi. Vui lòng thử lại sau.",
+    "btnText": "Thử lại"
+  }
 }

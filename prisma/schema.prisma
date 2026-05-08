@@ -134,12 +134,21 @@ model Session {
 }
 
 model VerificationToken {
-  id      String   @id @default(cuid())
-  email   String
-  token   String   @unique
-  expires DateTime
+  id        String    @id @default(cuid())
+  email     String
+  token     String    @unique
+  expires   DateTime
+  userId    String?
+  usedAt    DateTime?
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  @@unique([email, token])
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([email])
+  @@index([expires])
+  @@index([userId])
   @@map("verification_tokens")
 }
 
@@ -165,17 +174,18 @@ model User {
   deletedById          String?
 
   // relations
-  accounts        Account[]     @relation("UserAccounts")
-  sessions        Session[]     @relation("UserSessions")
-  orders          Order[]
-  addresses       Address[]
-  activityLogs    ActivityLog[]
-  cartItems       CartItem[]
-  reviews         Review[]
-  products        Product[]     @relation("UserProducts")
-  updatedProducts Product[]     @relation("UserUpdatedProducts")
-  couponUsages    CouponUsage[]
-  role            Role?         @relation(fields: [roleId], references: [id])
+  accounts           Account[]           @relation("UserAccounts")
+  sessions           Session[]           @relation("UserSessions")
+  verificationTokens VerificationToken[]
+  orders             Order[]
+  addresses          Address[]
+  activityLogs       ActivityLog[]
+  cartItems          CartItem[]
+  reviews            Review[]
+  products           Product[]           @relation("UserProducts")
+  updatedProducts    Product[]           @relation("UserUpdatedProducts")
+  couponUsages       CouponUsage[]
+  role               Role?               @relation(fields: [roleId], references: [id])
 
   @@index([status])
   @@map("users")

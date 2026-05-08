@@ -10,7 +10,6 @@ import { useCallback, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
 
 import { RegisterSchema, type RegisterSchema as RegisterSchemaType } from '../schemas/auth-schemas';
 import type { AuthError, UseRegisterReturn, SocialProvider } from '../types/auth.types';
@@ -69,23 +68,11 @@ export function useRegister(): UseRegisterReturn {
             return;
           }
 
-          // Registration successful, attempt automatic sign in
-          const signInResult = await signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-          });
-
-          if (signInResult?.error) {
-            setError(AuthErrorHandler.mapNextAuthError(signInResult.error));
-            return;
-          }
-
-          // Mark as successful before redirect
+          // Registration successful - email verification required before login
           setSuccess(true);
 
-          // Redirect after successful registration and sign in
-          const redirectUrl = result.data?.redirectUrl || '/';
+          // Redirect to verification pending page or show success message
+          const redirectUrl = result.data?.redirectUrl || '/auth/verify-email';
           setTimeout(() => {
             router.push(redirectUrl);
           }, 500);

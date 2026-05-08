@@ -23,7 +23,7 @@ export const AUTH_ERROR_CODES = {
   UNKNOWN_ERROR: 'error.unknownError',
 } as const;
 
-export type AuthErrorCode = (typeof AUTH_ERROR_CODES)[keyof typeof AUTH_ERROR_CODES];
+export type AuthErrorCode = string;
 
 /**
  * Get provider-specific error code

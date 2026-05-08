@@ -21,35 +21,33 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const currentFilters = parseProductFilters(resolvedSearchParams);
 
   return (
-    <div className="min-h-screen py-12 dark:bg-slate-950">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <ProductsHero badge={t('badge')} heading={t('heading')} description={t('description')} />
-        <div className="grid gap-8 xl:grid-cols-[300px_1fr]">
-          <FilterPanel availableFilters={availableFilters} currentFilters={currentFilters} />
-          <section className="space-y-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm tracking-[0.25em] text-cyan-400 uppercase">Results</p>
-                <h2 className="mt-2 text-3xl font-semibold text-white">
-                  {products.length} items found
-                </h2>
-              </div>
+    <div className="mx-auto p-4 sm:px-6 lg:px-8">
+      <ProductsHero badge={t('badge')} heading={t('heading')} description={t('description')} />
+      <div className="grid gap-8 xl:grid-cols-[300px_1fr]">
+        <FilterPanel availableFilters={availableFilters} currentFilters={currentFilters} />
+        <section className="space-y-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm tracking-[0.25em] text-cyan-400 uppercase">Results</p>
+              <h2 className="mt-2 text-3xl font-semibold text-white">
+                {products.length} items found
+              </h2>
             </div>
+          </div>
 
-            <ProductGrid
-              products={products}
-              renderAction={(product) => (
-                <AddToCartButton
-                  productId={product.id}
-                  name={product.name}
-                  priceSnapshot={product.price}
-                  image={product.image}
-                  stock={product.stock}
-                />
-              )}
-            />
-          </section>
-        </div>
+          <ProductGrid
+            products={products}
+            renderAction={(product) => (
+              <AddToCartButton
+                productId={product.id}
+                name={product.name}
+                priceSnapshot={product.price}
+                image={product.image}
+                stock={product.stock}
+              />
+            )}
+          />
+        </section>
       </div>
     </div>
   );
