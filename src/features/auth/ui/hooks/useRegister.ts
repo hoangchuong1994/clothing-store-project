@@ -8,7 +8,14 @@
 
 import { useCallback, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import {
+  useForm,
+  type Control,
+  type FieldErrors,
+  type UseFormHandleSubmit,
+  type UseFormRegister,
+  type UseFormWatch,
+} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 
@@ -25,15 +32,15 @@ interface RegisterError {
 }
 
 interface UseRegisterReturn {
-  register: any;
-  handleSubmit: any;
-  control: any;
+  register: UseFormRegister<RegisterSchemaType>;
+  handleSubmit: UseFormHandleSubmit<RegisterSchemaType>;
+  control: Control<RegisterSchemaType>;
   formState: {
-    errors: any;
+    errors: FieldErrors<RegisterSchemaType>;
     isValid: boolean;
     isDirty: boolean;
   };
-  watch: any;
+  watch: UseFormWatch<RegisterSchemaType>;
   isLoading: boolean;
   error: RegisterError | null;
   success: boolean;

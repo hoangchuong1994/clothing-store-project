@@ -8,7 +8,12 @@
 
 import { useCallback, useState, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import {
+  useForm,
+  type FieldErrors,
+  type UseFormHandleSubmit,
+  type UseFormRegister,
+} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 
@@ -34,10 +39,10 @@ interface LoginError {
 }
 
 interface UseLoginReturn {
-  register: any;
-  handleSubmit: any;
+  register: UseFormRegister<LoginSchemaType>;
+  handleSubmit: UseFormHandleSubmit<LoginSchemaType>;
   formState: {
-    errors: any;
+    errors: FieldErrors<LoginSchemaType>;
     isValid: boolean;
     isDirty: boolean;
   };
@@ -104,21 +109,6 @@ export function useLogin(): UseLoginReturn {
             setError({
               message: result.message || 'Login failed',
               code: result.code,
-            });
-            return;
-          }
-
-          // Server validation successful, now establish NextAuth session
-          const signInResult = await signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-          });
-
-          if (signInResult?.error) {
-            setError({
-              message: signInResult.error,
-              code: 'LOGIN_FAILED',
             });
             return;
           }

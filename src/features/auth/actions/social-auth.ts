@@ -6,7 +6,6 @@ import type { AuthResponse } from '../domain/types';
 import { AuthErrorHandler } from '../lib/auth-errors';
 import { AUTH_ERROR_CODES } from '../domain/types';
 import { signInWithProvider } from '../infrastructure/oauth/social-auth';
-
 /**
  * Handle social authentication
  * Initiates OAuth flow for the specified provider

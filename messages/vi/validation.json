@@ -5,7 +5,7 @@
     "required": "Email là bắt buộc"
   },
   "password": {
-    "min": "Mật khẩu phải có ít nhất 8 ký tự",
+    "min": "Mật khẩu phải có ít nhất 12 ký tự",
     "max": "Mật khẩu phải ít hơn 128 ký tự",
     "required": "Mật khẩu là bắt buộc",
     "mismatch": "Mật khẩu không khớp",
