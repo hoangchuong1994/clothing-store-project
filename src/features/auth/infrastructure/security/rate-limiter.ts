@@ -8,7 +8,7 @@
 
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import { RateLimitError } from '../../domain/errors';
+import { RateLimitError } from '../../domain/exceptions/auth.exceptions';
 
 /**
  * Initialize Redis client for rate limiting

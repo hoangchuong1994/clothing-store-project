@@ -3,10 +3,9 @@
  * Ensures consistent, secure API responses
  */
 
-import type { AuthError } from '../domain/errors';
+import type { AuthError } from '../domain/exceptions/auth.exceptions';
 import type { AuthResponse } from '../domain/types';
 import { AUTH_ERROR_CODES } from '../domain/types';
-import { getSafeErrorMessage } from '../domain/errors';
 
 /**
  * Type for log metadata values

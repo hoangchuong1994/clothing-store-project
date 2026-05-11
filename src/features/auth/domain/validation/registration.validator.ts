@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ValidationError } from '../errors';
+import { ValidationError } from '../exceptions/auth.exceptions';
 import { RegisterSchema } from './auth-schemas';
 import {
   hasCommonPasswordPattern,

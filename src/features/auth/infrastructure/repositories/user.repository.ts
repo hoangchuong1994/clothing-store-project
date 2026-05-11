@@ -4,7 +4,8 @@
  */
 
 import prisma from '@/lib/server/prisma/prisma';
-import { DuplicateEmailError, DatabaseError } from '../../domain/errors';
+import { DatabaseError } from '../../domain/exceptions/auth.exceptions';
+import { DuplicateEmailError } from '../../domain/exceptions/auth.exceptions';
 import { hashToken } from '../security/token.generator';
 
 export interface CreateUserWithVerificationInput {

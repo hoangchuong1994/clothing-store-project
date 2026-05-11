@@ -10,12 +10,11 @@ import { AuthLogger } from '../infrastructure/logging/structured-logger';
 import {
   AuthError,
   DatabaseError,
-  DuplicateEmailError,
   TokenAlreadyUsedError,
   TokenExpiredError,
   TokenNotFoundError,
   ValidationError,
-} from '../domain/errors';
+} from '../domain/exceptions/auth.exceptions';
 
 export interface RegisterResult {
   success: true;
@@ -29,6 +28,11 @@ export interface VerifyEmailResult {
   success: true;
   userId: string;
   email: string;
+}
+
+export interface RequestPasswordResetResult {
+  success: true;
+  message: string;
 }
 
 export interface AuthenticatedUser {
@@ -211,6 +215,50 @@ export class AuthService {
       email: user.email || '',
       role: user.role.name,
       scopes: [],
+    };
+  }
+
+  static async requestPasswordReset(email: string): Promise<RequestPasswordResetResult> {
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const user = await UserRepository.findByEmail(normalizedEmail);
+
+    if (!user) {
+      // Generic response to prevent enumeration
+      AuthLogger.debug('password_reset_user_not_found', {
+        email: normalizedEmail,
+      });
+      return {
+        success: true,
+        message: 'If email exists, password reset link has been sent',
+      };
+    }
+
+    const { token: rawToken, hashedToken, expiresAt } = generateVerificationToken();
+
+    // Store reset token
+    await UserRepository.createNewVerificationToken(normalizedEmail, {
+      hashedToken,
+      expiresAt,
+      userId: user.id,
+    });
+
+    // Queue email
+    await enqueueVerificationEmail({
+      userId: user.id,
+      email: normalizedEmail,
+      token: rawToken,
+      expiresAt,
+    });
+
+    AuthLogger.info('password_reset_requested', {
+      userId: user.id,
+      email: normalizedEmail,
+    });
+
+    return {
+      success: true,
+      message: 'If email exists, password reset link has been sent',
     };
   }
 }

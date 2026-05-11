@@ -23,7 +23,7 @@ import {
   RegisterSchema,
   type RegisterSchema as RegisterSchemaType,
 } from '../../domain/validation/auth-schemas';
-import { registerAction } from '../../application/register.action';
+import { registerAction } from '../../presentation/actions/register.action';
 
 interface RegisterError {
   message: string;

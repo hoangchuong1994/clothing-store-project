@@ -6,7 +6,7 @@
 
 */
 -- DropIndex
-DROP INDEX "verification_tokens_email_token_key";
+DROP INDEX IF EXISTS "verification_tokens_email_token_key";
 
 -- AlterTable
 ALTER TABLE "verification_tokens" ADD COLUMN "userId" TEXT,

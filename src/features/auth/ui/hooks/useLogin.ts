@@ -18,10 +18,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 
 import {
-  LoginSchema,
-  type LoginSchema as LoginSchemaType,
-} from '../../domain/validation/auth-schemas';
-import { loginAction } from '../../application/login.action';
+  loginClientSchema,
+  type LoginClientSchema,
+} from '../../shared/validation/login-client.schema';
+import { loginAction } from '../../presentation/actions/login.action';
 
 /**
  * Parse OAuth error from URL params
@@ -39,17 +39,17 @@ interface LoginError {
 }
 
 interface UseLoginReturn {
-  register: UseFormRegister<LoginSchemaType>;
-  handleSubmit: UseFormHandleSubmit<LoginSchemaType>;
+  register: UseFormRegister<LoginClientSchema>;
+  handleSubmit: UseFormHandleSubmit<LoginClientSchema>;
   formState: {
-    errors: FieldErrors<LoginSchemaType>;
+    errors: FieldErrors<LoginClientSchema>;
     isValid: boolean;
     isDirty: boolean;
   };
   isLoading: boolean;
   error: LoginError | null;
   success: boolean;
-  onSubmit: (values: LoginSchemaType) => Promise<void>;
+  onSubmit: (values: LoginClientSchema) => Promise<void>;
   onSocialAuth: (provider: 'google' | 'github') => Promise<void>;
   clearError: () => void;
   getErrorMessage: (authError: LoginError | null) => string;
@@ -76,13 +76,12 @@ export function useLogin(): UseLoginReturn {
   /**
    * Initialize form with validation
    */
-  const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<LoginClientSchema>({
+    resolver: zodResolver(loginClientSchema),
     mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
-      remember: true,
     },
   });
 
@@ -97,29 +96,21 @@ export function useLogin(): UseLoginReturn {
    * Handle form submission with credentials
    */
   const onSubmit = useCallback(
-    async (values: LoginSchemaType) => {
+    async (values: LoginClientSchema) => {
       clearError();
       setSuccess(false);
 
       startTransition(async () => {
         try {
-          const result = await loginAction(values.email, values.password);
-
-          if (!result.success) {
-            setError({
-              message: result.message || 'Login failed',
-              code: result.code,
-            });
-            return;
-          }
-
-          // Mark as successful before redirect
+          const result = await loginAction({
+            email: values.email,
+            password: values.password,
+            remember: values.remember,
+          });
+          console.log('Login result:', result);
           setSuccess(true);
 
-          // Redirect after short delay for UX feedback
-          setTimeout(() => {
-            window.location.href = callbackUrl;
-          }, 500);
+          window.location.href = callbackUrl;
         } catch (err) {
           console.error('Login error:', err);
           setError({
